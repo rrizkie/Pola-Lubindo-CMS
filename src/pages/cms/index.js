@@ -14,14 +14,11 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
-import { Collapse, Grid } from "@material-ui/core";
+import { Collapse } from "@material-ui/core";
 
-import UploadFotoProduk from "./produk/UploadFotoProduk";
-import InformasiProduk from "./produk/InformasiProduk";
-import DetilProduk from "./produk/DetilProduk";
-import HargaProduk from "./produk/HargaProduk";
-import PengelolaanProduk from "./produk/PengelolaanProduk";
-import BeratPengiriman from "./produk/BeratPengiriman";
+import TambahProduk from "./produk/tambahProduk";
+import DaftarProduk from "./produk";
+import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -76,27 +73,44 @@ function ResponsiveDrawer(props) {
   const menus = [
     {
       value: "Produk",
-      sub: [{ value: "Tambah Produk" }, { value: "Daftar Produk" }],
+      sub: [
+        {
+          value: "Tambah Produk",
+          link: "produk/tambah",
+          component: <TambahProduk />,
+        },
+        {
+          value: "Daftar Produk",
+          link: "produk",
+          component: <DaftarProduk />,
+        },
+      ],
       open: true,
-      link: "/produk",
+      icon: "/img/cms/sidebar/product-icon.png",
     },
     {
       value: "Penjualan",
       sub: [],
       open: null,
-      link: "/penjualan",
+      link: "penjualan",
+      component: "<Penjualan />",
+      icon: "/img/cms/sidebar/sales-icon.png",
     },
     {
       value: "Member",
       sub: [],
       open: null,
-      link: "/member",
+      link: "member",
+      component: "<Member />",
+      icon: "/img/cms/sidebar/member-icon.png",
     },
     {
       value: "Transaksi",
       sub: [],
       open: null,
-      link: "/transaksi",
+      link: "transaksi",
+      component: "<Transaksi />",
+      icon: "/img/cms/sidebar/transaction-icon.png",
     },
   ];
 
@@ -105,6 +119,8 @@ function ResponsiveDrawer(props) {
   const handleClickProduct = () => {
     setOpen(!open);
   };
+
+  let { url } = useRouteMatch();
 
   const drawer = (
     <div>
@@ -116,29 +132,11 @@ function ResponsiveDrawer(props) {
               button
               key={menu.value}
               onClick={menu.value === "Produk" ? handleClickProduct : null}
+              component={menu.value === "Produk" ? null : Link}
+              to={menu.value === "Produk" ? null : `${url}/${menu.link}`}
             >
               <ListItemIcon>
-                {menu.value === "Produk" ? (
-                  <img
-                    src="./img/cms/sidebar/product-icon.png"
-                    alt="Product Icon"
-                  />
-                ) : menu.value === "Penjualan" ? (
-                  <img
-                    src="./img/cms/sidebar/sales-icon.png"
-                    alt="Sales Icon"
-                  />
-                ) : menu.value === "Member" ? (
-                  <img
-                    src="./img/cms/sidebar/member-icon.png"
-                    alt="Member Icon"
-                  />
-                ) : (
-                  <img
-                    src="./img/cms/sidebar/transaction-icon.png"
-                    alt="Transaction Icon"
-                  />
-                )}
+                <img src={menu.icon} alt={menu.value} />
               </ListItemIcon>
               <ListItemText primary={<b>{menu.value}</b>} />
               {menu.open === true ? (
@@ -158,6 +156,8 @@ function ResponsiveDrawer(props) {
                     button
                     key={submenu.value}
                     className={classes.nested}
+                    component={Link}
+                    to={`${url}/${submenu.link}`}
                   >
                     <ListItemText primary={submenu.value} />
                   </ListItem>
@@ -193,7 +193,9 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h5" noWrap>
-            <b>TAMBAH PRODUK</b>
+            {menus.map((menu) => (
+              <b>{menu.link === "penjualan" ? "penjualan" : null}</b>
+            ))}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -230,26 +232,14 @@ function ResponsiveDrawer(props) {
       </nav>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Grid container spacing={3}>
-          <Grid item xs={12}>
-            <UploadFotoProduk />
-          </Grid>
-          <Grid item xs={12}>
-            <InformasiProduk />
-          </Grid>
-          <Grid item xs={12}>
-            <DetilProduk />
-          </Grid>
-          <Grid item xs={12}>
-            <HargaProduk />
-          </Grid>
-          <Grid item xs={12}>
-            <PengelolaanProduk />
-          </Grid>
-          <Grid item xs={12}>
-            <BeratPengiriman />
-          </Grid>
-        </Grid>
+        {menus.map((menu) => (
+          <Switch>
+            <Route path={`${url}/${menu.link}`}>{menu.component}</Route>
+            {menu.sub.map((submenu) => (
+              <Route path={`${url}/${submenu.link}`}>{submenu.component}</Route>
+            ))}
+          </Switch>
+        ))}
       </main>
     </div>
   );

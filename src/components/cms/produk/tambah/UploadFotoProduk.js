@@ -40,7 +40,7 @@ export default function SimpleCard() {
           </CardContent>
         </Grid>
         <Grid item xs={9}>
-          <img src="img/cms/photo-product-placeholder.png" alt="Placeholder" />
+          <img src="/img/cms/photo-product-placeholder.png" alt="Placeholder" />
         </Grid>
       </Grid>
     </Card>
