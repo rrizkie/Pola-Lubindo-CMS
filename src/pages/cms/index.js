@@ -85,13 +85,12 @@ function ResponsiveDrawer(props) {
           component: <DaftarProduk />,
         },
       ],
-      open: true,
+      expand: true,
       icon: "/img/cms/sidebar/product-icon.png",
     },
     {
       value: "Penjualan",
       sub: [],
-      open: null,
       link: "penjualan",
       component: "<Penjualan />",
       icon: "/img/cms/sidebar/sales-icon.png",
@@ -99,7 +98,6 @@ function ResponsiveDrawer(props) {
     {
       value: "Member",
       sub: [],
-      open: null,
       link: "member",
       component: "<Member />",
       icon: "/img/cms/sidebar/member-icon.png",
@@ -107,7 +105,6 @@ function ResponsiveDrawer(props) {
     {
       value: "Transaksi",
       sub: [],
-      open: null,
       link: "transaksi",
       component: "<Transaksi />",
       icon: "/img/cms/sidebar/transaction-icon.png",
@@ -139,15 +136,13 @@ function ResponsiveDrawer(props) {
                 <img src={menu.icon} alt={menu.value} />
               </ListItemIcon>
               <ListItemText primary={<b>{menu.value}</b>} />
-              {menu.open === true ? (
+              {menu.expand === true ? (
                 open ? (
                   <ExpandLess />
                 ) : (
                   <ExpandMore />
                 )
-              ) : (
-                false
-              )}
+              ) : null}
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
@@ -194,7 +189,16 @@ function ResponsiveDrawer(props) {
           </IconButton>
           <Typography variant="h5" noWrap>
             {menus.map((menu) => (
-              <b>{menu.link === "penjualan" ? "penjualan" : null}</b>
+              <Switch>
+                <Route path={`${url}/${menu.link}`}>
+                  <b>{menu.value}</b>
+                </Route>
+                {menu.sub.map((submenu) => (
+                  <Route path={`${url}/${submenu.link}`}>
+                    <b>{submenu.value}</b>
+                  </Route>
+                ))}
+              </Switch>
             ))}
           </Typography>
         </Toolbar>
