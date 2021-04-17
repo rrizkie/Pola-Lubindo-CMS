@@ -27,7 +27,7 @@ export default function SimpleCard() {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} elevation={3}>
+    <Card className={classes.root} elevation={2}>
       <Grid container>
         <Grid item xs={3}>
           <CardContent>

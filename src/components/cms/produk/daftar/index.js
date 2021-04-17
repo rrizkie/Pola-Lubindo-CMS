@@ -117,7 +117,12 @@ export default function BasicTable() {
       />,
       <Grid container spacing={3}>
         <Grid item xs={3}>
-          <img src="/logo192.png" alt="tes" width="50" height="50" />
+          <img
+            src="/img/cms/botol-oli.png"
+            alt="Botol Oli"
+            width="50"
+            height="50"
+          />
         </Grid>
         <Grid item xs={8}>
           Judul Produk
@@ -160,7 +165,7 @@ export default function BasicTable() {
       />,
       <Grid container spacing={3}>
         <Grid item xs={3}>
-          <img src="/logo192.png" alt="tes" width="50" height="50" />
+          <img src="/img/cms/botol-oli.png" alt="tes" width="50" height="50" />
         </Grid>
         <Grid item xs={8}>
           Judul Produk
@@ -199,64 +204,78 @@ export default function BasicTable() {
   ];
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>
-              <Checkbox
-                color="primary"
-                inputProps={{ "aria-label": "secondary checkbox" }}
-              />
-            </TableCell>
-            <TableCell>
-              <Button
-                className={classes.button}
-                endIcon={<ImportExportOutlinedIcon />}
-              >
-                INFO PRODUK
-              </Button>
-            </TableCell>
-            <TableCell>
-              <Button
-                className={classes.button}
-                endIcon={<ImportExportOutlinedIcon />}
-              >
-                HARGA
-              </Button>
-            </TableCell>
-            <TableCell>
-              <Button
-                className={classes.button}
-                endIcon={<ImportExportOutlinedIcon />}
-              >
-                STOK
-              </Button>
-            </TableCell>
-            <TableCell>
-              <Button
-                className={classes.button}
-                endIcon={<ImportExportOutlinedIcon />}
-              >
-                AKTIF
-              </Button>
-            </TableCell>
-            <TableCell></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell>{row.check}</TableCell>
-              <TableCell>{row.name}</TableCell>
-              <TableCell>{row.calories}</TableCell>
-              <TableCell>{row.fat}</TableCell>
-              <TableCell>{row.carbs}</TableCell>
-              <TableCell>{row.protein}</TableCell>
+    <>
+      <Button
+        variant="contained"
+        disableElevation
+        color="secondary"
+        style={{ marginBottom: 20, backgroundColor: "red" }}
+      >
+        + Tambah Produk
+      </Button>
+      <TableContainer
+        component={Paper}
+        elevation={2}
+        style={{ borderRadius: 20 }}
+      >
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Checkbox
+                  color="primary"
+                  inputProps={{ "aria-label": "secondary checkbox" }}
+                />
+              </TableCell>
+              <TableCell>
+                <Button
+                  className={classes.button}
+                  endIcon={<ImportExportOutlinedIcon />}
+                >
+                  INFO PRODUK
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button
+                  className={classes.button}
+                  endIcon={<ImportExportOutlinedIcon />}
+                >
+                  HARGA
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button
+                  className={classes.button}
+                  endIcon={<ImportExportOutlinedIcon />}
+                >
+                  STOK
+                </Button>
+              </TableCell>
+              <TableCell>
+                <Button
+                  className={classes.button}
+                  endIcon={<ImportExportOutlinedIcon />}
+                >
+                  AKTIF
+                </Button>
+              </TableCell>
+              <TableCell></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow key={row.name}>
+                <TableCell>{row.check}</TableCell>
+                <TableCell>{row.name}</TableCell>
+                <TableCell>{row.calories}</TableCell>
+                <TableCell>{row.fat}</TableCell>
+                <TableCell>{row.carbs}</TableCell>
+                <TableCell>{row.protein}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }

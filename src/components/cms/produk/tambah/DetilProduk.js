@@ -28,7 +28,7 @@ export default function SimpleCard() {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} elevation={3}>
+    <Card className={classes.root} elevation={2}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           <b>Detil Produk</b>

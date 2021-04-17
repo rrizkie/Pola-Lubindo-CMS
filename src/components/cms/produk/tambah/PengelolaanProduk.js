@@ -95,7 +95,7 @@ export default function SimpleCard() {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
   return (
-    <Card className={classes.root} elevation={3}>
+    <Card className={classes.root} elevation={2}>
       <CardContent>
         <Typography variant="h6" gutterBottom>
           <b>Pengelolaan Produk</b>
