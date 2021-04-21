@@ -124,7 +124,7 @@ export default function BasicTable() {
             height="50"
           />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={8}>
           Judul Produk
           <br />
           SKU
@@ -211,7 +211,7 @@ export default function BasicTable() {
         color="secondary"
         style={{ marginBottom: 20, backgroundColor: "red" }}
       >
-        + Tambah Produk
+        + Tambah Member
       </Button>
       <TableContainer
         component={Paper}

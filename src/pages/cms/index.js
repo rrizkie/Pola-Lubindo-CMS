@@ -16,8 +16,14 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import { Collapse } from "@material-ui/core";
 
-import TambahProduk from "./produk/tambahProduk";
+import TambahProduk from "./produk/tambah";
 import DaftarProduk from "./produk";
+
+import TambahMember from "./member/tambah";
+import DaftarMember from "./member";
+
+import Penjualan from "./penjualan";
+
 import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
 
 const drawerWidth = 240;
@@ -66,6 +72,17 @@ function ResponsiveDrawer(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const [product, setProduct] = React.useState(false);
+  const [member, setMember] = React.useState(false);
+
+  const handleClickProduct = () => {
+    setProduct(!product);
+  };
+
+  const handleClickMember = () => {
+    setMember(!member);
+  };
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -92,14 +109,24 @@ function ResponsiveDrawer(props) {
       value: "Penjualan",
       sub: [],
       link: "penjualan",
-      component: "<Penjualan />",
+      component: <Penjualan />,
       icon: "/img/cms/sidebar/sales-icon.png",
     },
     {
       value: "Member",
-      sub: [],
-      link: "member",
-      component: "<Member />",
+      sub: [
+        {
+          value: "Tambah Member",
+          link: "member/tambah",
+          component: <TambahMember />,
+        },
+        {
+          value: "Daftar Member",
+          link: "member",
+          component: <DaftarMember />,
+        },
+      ],
+      expand: true,
       icon: "/img/cms/sidebar/member-icon.png",
     },
     {
@@ -110,12 +137,6 @@ function ResponsiveDrawer(props) {
       icon: "/img/cms/sidebar/transaction-icon.png",
     },
   ];
-
-  const [open, setOpen] = React.useState(true);
-
-  const handleClickProduct = () => {
-    setOpen(!open);
-  };
 
   let { url } = useRouteMatch();
 
@@ -128,23 +149,45 @@ function ResponsiveDrawer(props) {
             <ListItem
               button
               key={menu.value}
-              onClick={menu.value === "Produk" ? handleClickProduct : null}
-              component={menu.value === "Produk" ? null : Link}
-              to={menu.value === "Produk" ? null : `${url}/${menu.link}`}
+              onClick={
+                menu.value === "Produk"
+                  ? handleClickProduct
+                  : menu.value === "Member"
+                  ? handleClickMember
+                  : null
+              }
+              component={menu.expand === true ? null : Link}
+              to={menu.expand === true ? null : `${url}/${menu.link}`}
             >
               <ListItemIcon>
                 <img src={menu.icon} alt={menu.value} />
               </ListItemIcon>
               <ListItemText primary={<b>{menu.value}</b>} />
-              {menu.expand === true ? (
-                open ? (
+              {menu.value === "Produk" ? (
+                product ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )
+              ) : menu.value === "Member" ? (
+                member ? (
                   <ExpandLess />
                 ) : (
                   <ExpandMore />
                 )
               ) : null}
             </ListItem>
-            <Collapse in={open} timeout="auto" unmountOnExit>
+            <Collapse
+              in={
+                menu.value === "Produk"
+                  ? product
+                  : menu.value === "Member"
+                  ? member
+                  : null
+              }
+              timeout="auto"
+              unmountOnExit
+            >
               <List component="div" disablePadding>
                 {menu.sub.map((submenu) => (
                   <ListItem

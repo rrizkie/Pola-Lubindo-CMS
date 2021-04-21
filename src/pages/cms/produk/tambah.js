@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "@material-ui/core";
+import { Button, Grid, makeStyles } from "@material-ui/core";
 
 import UploadFotoProduk from "../../../components/cms/produk/tambah/UploadFotoProduk";
 import InformasiProduk from "../../../components/cms/produk/tambah/InformasiProduk";
@@ -9,6 +9,16 @@ import PengelolaanProduk from "../../../components/cms/produk/tambah/Pengelolaan
 import BeratPengiriman from "../../../components/cms/produk/tambah/BeratPengiriman";
 
 function ResponsiveDrawer() {
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      "& > *": {
+        margin: theme.spacing(1),
+      },
+      textAlign: "right",
+    },
+  }));
+
+  const classes = useStyles();
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -28,6 +38,18 @@ function ResponsiveDrawer() {
       </Grid>
       <Grid item xs={12}>
         <BeratPengiriman />
+      </Grid>
+      <Grid item xs={12} className={classes.root}>
+        <Button variant="outlined">Batal</Button>
+        <Button variant="outlined">Simpan & tambah baru</Button>
+        <Button
+          variant="contained"
+          color="primary"
+          disableElevation
+          style={{ backgroundColor: "red" }}
+        >
+          Simpan
+        </Button>
       </Grid>
     </Grid>
   );
