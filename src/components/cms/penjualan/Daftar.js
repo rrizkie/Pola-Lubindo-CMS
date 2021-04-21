@@ -94,7 +94,7 @@ export default function BasicTable() {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{ borderTop: "1px solid" }}>
           <Grid item xs={4}>
             <Grid container spacing={3}>
               <Grid item xs={3}>
@@ -140,7 +140,7 @@ export default function BasicTable() {
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} style={{ borderTop: "1px solid" }}>
           <Grid item xs={8}>
             sales by: Kevin
           </Grid>
