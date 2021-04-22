@@ -114,6 +114,17 @@ export default function SimpleCard() {
   const handleChangePreorder = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
+
+  const RedRadio = withStyles({
+    root: {
+      color: "red",
+      "&$checked": {
+        color: "red",
+      },
+    },
+    checked: {},
+  })((props) => <Radio color="default" {...props} />);
+
   return (
     <Card className={classes.root} elevation={2}>
       <CardContent>
@@ -207,12 +218,12 @@ export default function SimpleCard() {
               >
                 <FormControlLabel
                   value="Wajib"
-                  control={<Radio color="primary" />}
+                  control={<RedRadio />}
                   label="Wajib"
                 />
                 <FormControlLabel
                   value="Opsional"
-                  control={<Radio color="primary" />}
+                  control={<RedRadio />}
                   label="Opsional"
                 />
               </RadioGroup>
@@ -236,12 +247,12 @@ export default function SimpleCard() {
               >
                 <FormControlLabel
                   value="Standar"
-                  control={<Radio color="primary" />}
+                  control={<RedRadio />}
                   label="Standar"
                 />
                 <FormControlLabel
                   value="Custom"
-                  control={<Radio color="primary" />}
+                  control={<RedRadio />}
                   label="Custom"
                 />
               </RadioGroup>

@@ -98,6 +98,16 @@ export default function SimpleCard() {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
+  const RedCheckbox = withStyles({
+    root: {
+      color: "red",
+      "&$checked": {
+        color: "red",
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
+
   return (
     <Card className={classes.root} elevation={2}>
       <CardContent>
@@ -143,7 +153,7 @@ export default function SimpleCard() {
           <Grid item xs={6}>
             <FormControlLabel
               control={
-                <Checkbox
+                <RedCheckbox
                   checked={state.checkedA}
                   onChange={handleChange}
                   name="checkedA"
@@ -158,7 +168,7 @@ export default function SimpleCard() {
             <FormGroup row>
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={state.checkedA}
                     onChange={handleChange}
                     name="checkedA"
@@ -168,7 +178,7 @@ export default function SimpleCard() {
               />
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={state.checkedA}
                     onChange={handleChange}
                     name="checkedA"
@@ -178,7 +188,7 @@ export default function SimpleCard() {
               />
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={state.checkedA}
                     onChange={handleChange}
                     name="checkedA"
@@ -188,7 +198,7 @@ export default function SimpleCard() {
               />
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={state.checkedA}
                     onChange={handleChange}
                     name="checkedA"
@@ -198,7 +208,7 @@ export default function SimpleCard() {
               />
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={state.checkedA}
                     onChange={handleChange}
                     name="checkedA"

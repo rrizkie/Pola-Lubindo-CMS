@@ -9,6 +9,7 @@ import {
   Paper,
   TextField,
   Typography,
+  withStyles,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import QueryBuilderOutlinedIcon from "@material-ui/icons/QueryBuilderOutlined";
@@ -40,12 +41,21 @@ export default function BasicTable() {
     setPilih({ ...pilih, [event.target.name]: event.target.checked });
   };
 
+  const RedCheckbox = withStyles({
+    root: {
+      color: "red",
+      "&$checked": {
+        color: "red",
+      },
+    },
+    checked: {},
+  })((props) => <Checkbox color="default" {...props} />);
   return (
     <>
       <form className={classes.form} noValidate autoComplete="off">
         <FormControlLabel
           control={
-            <Checkbox
+            <RedCheckbox
               checked={pilih.checkedA}
               onChange={handlePilih}
               name="checkedA"
@@ -62,13 +72,15 @@ export default function BasicTable() {
             <Breadcrumbs aria-label="breadcrumb">
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={pilih.checkedA}
                     onChange={handlePilih}
                     name="checkedA"
                   />
                 }
-                label="pesanan diproses"
+                label={
+                  <Typography color="textPrimary">pesanan diproses</Typography>
+                }
               />
               <Link color="inherit" href="/">
                 INV-contoh-12321321
@@ -175,13 +187,15 @@ export default function BasicTable() {
             <Breadcrumbs aria-label="breadcrumb">
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={pilih.checkedA}
                     onChange={handlePilih}
                     name="checkedA"
                   />
                 }
-                label="pesanan diproses"
+                label={
+                  <Typography color="textPrimary">pesanan diproses</Typography>
+                }
               />
               <Link color="inherit" href="/">
                 INV-contoh-12321321
@@ -273,13 +287,15 @@ export default function BasicTable() {
             <Breadcrumbs aria-label="breadcrumb">
               <FormControlLabel
                 control={
-                  <Checkbox
+                  <RedCheckbox
                     checked={pilih.checkedA}
                     onChange={handlePilih}
                     name="checkedA"
                   />
                 }
-                label="pesanan diproses"
+                label={
+                  <Typography color="textPrimary">pesanan diproses</Typography>
+                }
               />
               <Link color="inherit" href="/">
                 INV-contoh-12321321
