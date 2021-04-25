@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -15,63 +14,28 @@ import {
   MenuItem,
   Switch,
   TextField,
-  withStyles,
 } from "@material-ui/core";
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
+import useStyles from "./styles";
 
 export default function BasicTable() {
-  const IOSSwitch = withStyles((theme) => ({
-    root: {
-      width: 42,
-      height: 26,
-      padding: 0,
-      margin: theme.spacing(1),
-    },
-    switchBase: {
-      padding: 1,
-      "&$checked": {
-        transform: "translateX(16px)",
-        color: theme.palette.common.white,
-        "& + $track": {
-          backgroundColor: "#52d869",
-          opacity: 1,
-          border: "none",
-        },
-      },
-      "&$focusVisible $thumb": {
-        color: "#52d869",
-        border: "6px solid #fff",
-      },
-    },
-    thumb: {
-      width: 24,
-      height: 24,
-    },
-    track: {
-      borderRadius: 26 / 2,
-      border: `1px solid ${theme.palette.grey[400]}`,
-      backgroundColor: theme.palette.grey[50],
-      opacity: 1,
-      transition: theme.transitions.create(["background-color", "border"]),
-    },
-    checked: {},
-    focusVisible: {},
-  }))(({ classes, ...props }) => {
+  const classes = useStyles();
+
+  const IOSSwitch = () => {
     return (
       <Switch
         focusVisibleClassName={classes.focusVisible}
         disableRipple
         classes={{
-          root: classes.root,
+          root: classes.switch,
           switchBase: classes.switchBase,
           thumb: classes.thumb,
           track: classes.track,
           checked: classes.checked,
         }}
-        {...props}
       />
     );
-  });
+  };
 
   const [state, setState] = React.useState({
     checkedA: true,
@@ -82,14 +46,6 @@ export default function BasicTable() {
   const handleChange = (event) => {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
-
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 650,
-    },
-  });
-
-  const classes = useStyles();
 
   function createData(check, name, calories, fat, carbs, protein) {
     return { check, name, calories, fat, carbs, protein };
@@ -209,14 +165,14 @@ export default function BasicTable() {
         variant="contained"
         disableElevation
         color="secondary"
-        style={{ marginBottom: 20, backgroundColor: "red" }}
+        className={classes.tambah_produk}
       >
         + Tambah Produk
       </Button>
       <TableContainer
         component={Paper}
         elevation={2}
-        style={{ borderRadius: 20 }}
+        className={classes.table_container}
       >
         <Table className={classes.table} aria-label="simple table">
           <TableHead>

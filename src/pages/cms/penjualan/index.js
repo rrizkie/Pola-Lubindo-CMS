@@ -1,13 +1,11 @@
 import Kategori from "../../../components/cms/penjualan/Kategori";
 import Daftar from "../../../components/cms/penjualan/Daftar";
-import { Button } from "@material-ui/core";
+import Button from "../../../components/cms/penjualan/Button";
 
 export default function Index(params) {
   return (
     <>
-      <Button variant="outlined" disableElevation style={{ marginBottom: 20 }}>
-        unduh laporan penjualan
-      </Button>
+      <Button />
       <Kategori />
       <Daftar />
     </>

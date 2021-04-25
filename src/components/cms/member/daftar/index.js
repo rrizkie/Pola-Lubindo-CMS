@@ -1,5 +1,4 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -9,54 +8,19 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import {
   Button,
-  Checkbox,
   Grid,
-  InputAdornment,
+  IconButton,
+  Menu,
   MenuItem,
   Switch,
-  TextField,
-  withStyles,
 } from "@material-ui/core";
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
+import MailOutlineIcon from "@material-ui/icons/MailOutline";
+import ListIcon from "@material-ui/icons/List";
+import useStyles from "./styles";
 
 export default function BasicTable() {
-  const IOSSwitch = withStyles((theme) => ({
-    root: {
-      width: 42,
-      height: 26,
-      padding: 0,
-      margin: theme.spacing(1),
-    },
-    switchBase: {
-      padding: 1,
-      "&$checked": {
-        transform: "translateX(16px)",
-        color: theme.palette.common.white,
-        "& + $track": {
-          backgroundColor: "#52d869",
-          opacity: 1,
-          border: "none",
-        },
-      },
-      "&$focusVisible $thumb": {
-        color: "#52d869",
-        border: "6px solid #fff",
-      },
-    },
-    thumb: {
-      width: 24,
-      height: 24,
-    },
-    track: {
-      borderRadius: 26 / 2,
-      border: `1px solid ${theme.palette.grey[400]}`,
-      backgroundColor: theme.palette.grey[50],
-      opacity: 1,
-      transition: theme.transitions.create(["background-color", "border"]),
-    },
-    checked: {},
-    focusVisible: {},
-  }))(({ classes, ...props }) => {
+  const IOSSwitch = () => {
     return (
       <Switch
         focusVisibleClassName={classes.focusVisible}
@@ -68,10 +32,9 @@ export default function BasicTable() {
           track: classes.track,
           checked: classes.checked,
         }}
-        {...props}
       />
     );
-  });
+  };
 
   const [state, setState] = React.useState({
     checkedA: true,
@@ -83,123 +46,90 @@ export default function BasicTable() {
     setState({ ...state, [event.target.name]: event.target.checked });
   };
 
-  const useStyles = makeStyles({
-    table: {
-      minWidth: 650,
-    },
-  });
-
   const classes = useStyles();
 
-  function createData(check, name, calories, fat, carbs, protein) {
-    return { check, name, calories, fat, carbs, protein };
+  function createData(
+    nama,
+    tgl_gabung,
+    kontak,
+    komisi,
+    produk_komisi,
+    diskon,
+    status,
+    aksi
+  ) {
+    return {
+      nama,
+      tgl_gabung,
+      kontak,
+      komisi,
+      produk_komisi,
+      diskon,
+      status,
+      aksi,
+    };
   }
 
-  const currencies = [
-    {
-      value: "edit",
-    },
-    {
-      value: "hapus",
-    },
-  ];
-  const [currency, setCurrency] = React.useState("");
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-  const handleChangeAksi = (event) => {
-    setCurrency(event.target.value);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const rows = [
     createData(
-      <Checkbox
-        color="primary"
-        inputProps={{ "aria-label": "secondary checkbox" }}
-      />,
-      <Grid container spacing={3}>
+      "Kelvin Andrew",
+      "29/01/2021",
+      <Grid container alignItems="center">
         <Grid item xs={3}>
-          <img
-            src="/img/cms/botol-oli.png"
-            alt="Botol Oli"
-            width="50"
-            height="50"
-          />
+          <img src="/img/cms/WhatsApp.svg" alt="WhatsApp" width="30" />
         </Grid>
-        <Grid item xs={8}>
-          Judul Produk
-          <br />
-          SKU
+        <Grid item xs={9}>
+          0819812312
+        </Grid>
+        <Grid item xs={3}>
+          <MailOutlineIcon />
+        </Grid>
+        <Grid item xs={9}>
+          halim@hotmail.com
         </Grid>
       </Grid>,
-      <TextField
-        variant="outlined"
-        size="small"
-        InputProps={{
-          startAdornment: <InputAdornment position="start">Rp.</InputAdornment>,
-        }}
-      />,
-      <TextField variant="outlined" size="small" />,
+      <Grid container alignItems="center">
+        <Grid item xs={12}>
+          Total: Rp 800.000
+        </Grid>
+        <Grid item xs={12}>
+          Sisa: Rp 800.000
+        </Grid>
+      </Grid>,
+      <Grid container alignItems="center">
+        <Grid item xs={12}>
+          10 Produk
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="outlined">ubah komisi</Button>
+        </Grid>
+      </Grid>,
+      <Grid container alignItems="center">
+        <Grid item xs={12}>
+          10 Produk
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="outlined">ubah komisi</Button>
+        </Grid>
+      </Grid>,
       <IOSSwitch
         checked={state.checkedB}
         onChange={handleChange}
         name="checkedB"
       />,
-      <TextField
-        id="outlined-select-currency"
-        select
-        value={currency}
-        onChange={handleChangeAksi}
-        variant="outlined"
-        size="small"
-      >
-        {currencies.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.value}
-          </MenuItem>
-        ))}
-      </TextField>
-    ),
-    createData(
-      <Checkbox
-        color="primary"
-        inputProps={{ "aria-label": "secondary checkbox" }}
-      />,
-      <Grid container spacing={3}>
-        <Grid item xs={3}>
-          <img src="/img/cms/botol-oli.png" alt="tes" width="50" height="50" />
-        </Grid>
-        <Grid item xs={8}>
-          Judul Produk
-          <br />
-          SKU
-        </Grid>
-      </Grid>,
-      <TextField
-        variant="outlined"
-        size="small"
-        InputProps={{
-          startAdornment: <InputAdornment position="start">Rp.</InputAdornment>,
-        }}
-      />,
-      <TextField variant="outlined" size="small" />,
-      <IOSSwitch
-        checked={state.checkedB}
-        onChange={handleChange}
-        name="checkedB"
-      />,
-      <TextField
-        id="outlined-select-currency"
-        select
-        value={currency}
-        onChange={handleChangeAksi}
-        variant="outlined"
-        size="small"
-      >
-        {currencies.map((option) => (
-          <MenuItem key={option.value} value={option.value}>
-            {option.value}
-          </MenuItem>
-        ))}
-      </TextField>
+      <IconButton aria-label="aksi" onClick={handleClick}>
+        <ListIcon />
+      </IconButton>
     ),
   ];
 
@@ -209,73 +139,62 @@ export default function BasicTable() {
         variant="contained"
         disableElevation
         color="secondary"
-        style={{ marginBottom: 20, backgroundColor: "red" }}
+        className={classes.tambah_member}
       >
         + Tambah Member
       </Button>
       <TableContainer
         component={Paper}
         elevation={2}
-        style={{ borderRadius: 20 }}
+        className={classes.table_container}
       >
         <Table className={classes.table} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>
-                <Checkbox
-                  color="primary"
-                  inputProps={{ "aria-label": "secondary checkbox" }}
-                />
-              </TableCell>
-              <TableCell>
                 <Button
                   className={classes.button}
                   endIcon={<ImportExportOutlinedIcon />}
                 >
-                  INFO PRODUK
+                  Nama
                 </Button>
               </TableCell>
-              <TableCell>
-                <Button
-                  className={classes.button}
-                  endIcon={<ImportExportOutlinedIcon />}
-                >
-                  HARGA
-                </Button>
-              </TableCell>
-              <TableCell>
-                <Button
-                  className={classes.button}
-                  endIcon={<ImportExportOutlinedIcon />}
-                >
-                  STOK
-                </Button>
-              </TableCell>
-              <TableCell>
-                <Button
-                  className={classes.button}
-                  endIcon={<ImportExportOutlinedIcon />}
-                >
-                  AKTIF
-                </Button>
-              </TableCell>
-              <TableCell></TableCell>
+              <TableCell>Tgl gabung</TableCell>
+              <TableCell>Kontak</TableCell>
+              <TableCell>Komisi</TableCell>
+              <TableCell>Produk Komisi</TableCell>
+              <TableCell>Diskon</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell>Aksi</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell>{row.check}</TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.calories}</TableCell>
-                <TableCell>{row.fat}</TableCell>
-                <TableCell>{row.carbs}</TableCell>
-                <TableCell>{row.protein}</TableCell>
+              <TableRow key={row.nama}>
+                <TableCell>{row.nama}</TableCell>
+                <TableCell>{row.tgl_gabung}</TableCell>
+                <TableCell>{row.kontak}</TableCell>
+                <TableCell>{row.komisi}</TableCell>
+                <TableCell>{row.produk_komisi}</TableCell>
+                <TableCell>{row.diskon}</TableCell>
+                <TableCell>{row.status}</TableCell>
+                <TableCell>{row.aksi}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <Menu
+        id="simple-menu"
+        anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}>edit</MenuItem>
+        <MenuItem onClick={handleClose}>hapus</MenuItem>
+        <MenuItem onClick={handleClose}>reset password</MenuItem>
+      </Menu>
     </>
   );
 }

@@ -3,31 +3,18 @@ import {
   Breadcrumbs,
   Button,
   Checkbox,
+  Chip,
   FormControlLabel,
   Grid,
-  makeStyles,
   Paper,
   TextField,
   Typography,
-  withStyles,
 } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import QueryBuilderOutlinedIcon from "@material-ui/icons/QueryBuilderOutlined";
+import useStyles from "./styles";
 
 export default function BasicTable() {
-  const useStyles = makeStyles((theme) => ({
-    form: {
-      "& > *": {
-        margin: theme.spacing(1),
-        width: "25ch",
-      },
-    },
-    paper: {
-      padding: theme.spacing(2),
-      color: theme.palette.text.secondary,
-    },
-  }));
-
   const classes = useStyles();
 
   const [pilih, setPilih] = React.useState({
@@ -41,18 +28,13 @@ export default function BasicTable() {
     setPilih({ ...pilih, [event.target.name]: event.target.checked });
   };
 
-  const RedCheckbox = withStyles({
-    root: {
-      color: "red",
-      "&$checked": {
-        color: "red",
-      },
-    },
-    checked: {},
-  })((props) => <Checkbox color="default" {...props} />);
+  const RedCheckbox = () => (
+    <Checkbox color="default" className={classes.checkbox} />
+  );
+
   return (
     <>
-      <form className={classes.form} noValidate autoComplete="off">
+      <form className={classes.form_daftar} noValidate autoComplete="off">
         <FormControlLabel
           control={
             <RedCheckbox
@@ -63,10 +45,11 @@ export default function BasicTable() {
           }
           label="1 pesanan terpilih"
         />
+
         <Button variant="outlined">cetak resi</Button>
         <Button variant="outlined">cetak label</Button>
       </form>
-      <Paper className={classes.paper} style={{ marginBottom: 20 }}>
+      <Paper className={classes.paper}>
         <Grid container spacing={3}>
           <Grid item xs={8}>
             <Breadcrumbs aria-label="breadcrumb">
@@ -91,7 +74,7 @@ export default function BasicTable() {
               <Typography color="textPrimary">22 Maret 2021 | 18:00</Typography>
             </Breadcrumbs>
           </Grid>
-          <Grid item xs={4} style={{ textAlign: "right" }}>
+          <Grid item xs={4} classname={classes.grid_align_right}>
             <Typography color="textPrimary">
               batas respons &ensp;
               <Button
@@ -99,14 +82,14 @@ export default function BasicTable() {
                 color="primary"
                 disableElevation
                 startIcon={<QueryBuilderOutlinedIcon />}
-                style={{ backgroundColor: "#fbc901" }}
+                className={classes.batas_respons}
               >
                 23 Jam
               </Button>
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={3} style={{ borderTop: "1px solid" }}>
+        <Grid container spacing={3} className={classes.grid_border_top}>
           <Grid item xs={4}>
             <Grid container spacing={3}>
               <Grid item xs={3}>
@@ -124,7 +107,7 @@ export default function BasicTable() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={5} style={{ borderLeft: "1px solid" }}>
+          <Grid item xs={5} className={classes.grid_border_left}>
             <Typography color="textPrimary">
               Alamat
               <br />
@@ -132,7 +115,7 @@ export default function BasicTable() {
               Parongpong, Kab. Bandung Barat, Jawa Barat 40559
             </Typography>
           </Grid>
-          <Grid item xs={3} style={{ borderLeft: "1px solid" }}>
+          <Grid item xs={3} className={classes.grid_border_left}>
             <Typography color="textPrimary">
               Kurir JNE Reguler
               <br />
@@ -146,27 +129,18 @@ export default function BasicTable() {
             <br />
             Total bayar
           </Grid>
-          <Grid item xs={3} style={{ textAlign: "right" }}>
+          <Grid item xs={3} className={classes.grid_align_right}>
             <Typography color="textPrimary">
               <b>Rp. 235.000</b>
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={3} style={{ borderTop: "1px solid" }}>
+        <Grid container spacing={3} className={classes.grid_border_top}>
           <Grid item xs={8}>
             sales by: Kevin
           </Grid>
-          <Grid
-            item
-            xs={4}
-            style={{
-              textAlign: "right",
-            }}
-          >
-            <Button
-              variant="outlined"
-              style={{ color: "green", borderColor: "green" }}
-            >
+          <Grid item xs={4} className={classes.grid_align_right}>
+            <Button variant="outlined" className={classes.tolak_pesanan}>
               tolak pesanan
             </Button>
             &emsp;
@@ -174,14 +148,14 @@ export default function BasicTable() {
               variant="contained"
               color="primary"
               disableElevation
-              style={{ backgroundColor: "green" }}
+              className={classes.terima_pesanan}
             >
               terima pesanan
             </Button>
           </Grid>
         </Grid>
       </Paper>
-      <Paper className={classes.paper} style={{ marginBottom: 20 }}>
+      <Paper className={classes.paper}>
         <Grid container spacing={3}>
           <Grid item xs={8}>
             <Breadcrumbs aria-label="breadcrumb">
@@ -206,7 +180,7 @@ export default function BasicTable() {
               <Typography color="textPrimary">22 Maret 2021 | 18:00</Typography>
             </Breadcrumbs>
           </Grid>
-          <Grid item xs={4} style={{ textAlign: "right" }}>
+          <Grid item xs={4} className={classes.grid_align_right}>
             <Typography color="textPrimary">
               batas respons &ensp;
               <Button
@@ -214,14 +188,14 @@ export default function BasicTable() {
                 color="primary"
                 disableElevation
                 startIcon={<QueryBuilderOutlinedIcon />}
-                style={{ backgroundColor: "#fbc901" }}
+                className={classes.batas_respons}
               >
                 23 Jam
               </Button>
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={3} style={{ borderTop: "1px solid" }}>
+        <Grid container spacing={3} className={classes.grid_border_top}>
           <Grid item xs={4}>
             <Grid container spacing={3}>
               <Grid item xs={3}>
@@ -239,15 +213,15 @@ export default function BasicTable() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={5} style={{ borderLeft: "1px solid" }}>
+          <Grid item xs={5} className={classes.grid_border_left}>
             <Typography color="textPrimary">
-              Alamat
+              Alamat <Chip label="sudah dicetak" />
               <br />
               David angjaya (6285795911111) The green sariwangi tahap 3 no 14
               Parongpong, Kab. Bandung Barat, Jawa Barat 40559
             </Typography>
           </Grid>
-          <Grid item xs={3} style={{ borderLeft: "1px solid" }}>
+          <Grid item xs={3} className={classes.grid_border_left}>
             <Typography color="textPrimary">
               Kurir JNE Reguler
               <br />
@@ -261,7 +235,7 @@ export default function BasicTable() {
             <br />
             Total bayar
           </Grid>
-          <Grid item xs={3} style={{ textAlign: "right" }}>
+          <Grid item xs={3} className={classes.grid_align_right}>
             <Typography color="textPrimary">
               <b>Rp. 235.000</b>
             </Typography>
@@ -271,9 +245,9 @@ export default function BasicTable() {
           container
           spacing={3}
           alignItems="center"
-          style={{ borderTop: "1px solid" }}
+          className={classes.grid_border_top}
         >
-          <Grid item xs={9} style={{ textAlign: "right" }}>
+          <Grid item xs={9} className={classes.grid_align_right}>
             Nomor resi
           </Grid>
           <Grid item xs={3}>
@@ -281,7 +255,7 @@ export default function BasicTable() {
           </Grid>
         </Grid>
       </Paper>
-      <Paper className={classes.paper} style={{ marginBottom: 20 }}>
+      <Paper className={classes.paper}>
         <Grid container spacing={3}>
           <Grid item xs={8}>
             <Breadcrumbs aria-label="breadcrumb">
@@ -306,7 +280,7 @@ export default function BasicTable() {
               <Typography color="textPrimary">22 Maret 2021 | 18:00</Typography>
             </Breadcrumbs>
           </Grid>
-          <Grid item xs={4} style={{ textAlign: "right" }}>
+          <Grid item xs={4} className={classes.grid_align_right}>
             <Typography color="textPrimary">
               telat &ensp;
               <Button
@@ -314,14 +288,14 @@ export default function BasicTable() {
                 color="primary"
                 disableElevation
                 startIcon={<QueryBuilderOutlinedIcon />}
-                style={{ backgroundColor: "red" }}
+                className={classes.telat}
               >
                 23 Jam
               </Button>
             </Typography>
           </Grid>
         </Grid>
-        <Grid container spacing={3} style={{ borderTop: "1px solid" }}>
+        <Grid container spacing={3} className={classes.grid_border_top}>
           <Grid item xs={4}>
             <Grid container spacing={3}>
               <Grid item xs={3}>
@@ -339,15 +313,15 @@ export default function BasicTable() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={5} style={{ borderLeft: "1px solid" }}>
+          <Grid item xs={5} className={classes.grid_border_left}>
             <Typography color="textPrimary">
-              Alamat
+              Alamat <Chip label="sudah dicetak" />
               <br />
               David angjaya (6285795911111) The green sariwangi tahap 3 no 14
               Parongpong, Kab. Bandung Barat, Jawa Barat 40559
             </Typography>
           </Grid>
-          <Grid item xs={3} style={{ borderLeft: "1px solid" }}>
+          <Grid item xs={3} className={classes.grid_border_left}>
             <Typography color="textPrimary">
               Kurir JNE Reguler
               <br />
@@ -361,7 +335,7 @@ export default function BasicTable() {
             <br />
             Total bayar
           </Grid>
-          <Grid item xs={3} style={{ textAlign: "right" }}>
+          <Grid item xs={3} className={classes.grid_align_right}>
             <Typography color="textPrimary">
               <b>Rp. 235.000</b>
             </Typography>
@@ -371,9 +345,9 @@ export default function BasicTable() {
           container
           spacing={3}
           alignItems="center"
-          style={{ borderTop: "1px solid" }}
+          className={classes.grid_border_top}
         >
-          <Grid item xs={9} style={{ textAlign: "right" }}>
+          <Grid item xs={9} className={classes.grid_align_right}>
             Nomor resi
           </Grid>
           <Grid item xs={3}>
