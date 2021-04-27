@@ -41,6 +41,27 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 650,
   },
   table_container: { borderRadius: 20 },
+
+  // Modal
+  paper: {
+    position: "absolute",
+    width: 800,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  button: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+    textAlign: "center",
+    marginTop: 20,
+  },
+  btnSave: { backgroundColor: "red" },
 }));
 
 export default useStyles;

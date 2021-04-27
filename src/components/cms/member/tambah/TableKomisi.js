@@ -9,39 +9,16 @@ import Paper from "@material-ui/core/Paper";
 import { TextField } from "@material-ui/core";
 import useStyles from "./styles";
 
-function createData(name, calories, fat, carbs) {
-  return { name, calories, fat, carbs };
-}
-
-const rows = [
-  createData(
-    "Lucas Oil Super Coolant",
-    "Rp. 500.000",
-    <TextField value="45.000" variant="outlined" size="small" />,
-    "14%"
-  ),
-  createData(
-    "Lucas Oil Super Coolant",
-    "Rp. 500.000",
-    <TextField value="45.000" variant="outlined" size="small" />,
-    "14%"
-  ),
-  createData(
-    "Lucas Oil Super Coolant",
-    "Rp. 500.000",
-    <TextField value="45.000" variant="outlined" size="small" />,
-    "14%"
-  ),
-  createData(
-    "Lucas Oil Super Coolant",
-    "Rp. 500.000",
-    <TextField value="45.000" variant="outlined" size="small" />,
-    "14%"
-  ),
-];
-
 export default function BasicTable() {
   const classes = useStyles();
+
+  function createData(nama_produk, harga, komisi_rp, komisi_persen) {
+    return { nama_produk, harga, komisi_rp, komisi_persen };
+  }
+
+  const rows = [
+    createData("Lucas Oil Super Coolant", "Rp. 500.000", "45.000", "14%"),
+  ];
 
   return (
     <TableContainer component={Paper}>
@@ -56,13 +33,19 @@ export default function BasicTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.nama_produk}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.nama_produk}
               </TableCell>
-              <TableCell align="right">{row.calories}</TableCell>
-              <TableCell align="right">{row.fat}</TableCell>
-              <TableCell align="right">{row.carbs}</TableCell>
+              <TableCell align="right">{row.harga}</TableCell>
+              <TableCell align="right">
+                <TextField
+                  value={row.komisi_rp}
+                  variant="outlined"
+                  size="small"
+                />
+              </TableCell>
+              <TableCell align="right">{row.komisi_persen}</TableCell>
             </TableRow>
           ))}
         </TableBody>

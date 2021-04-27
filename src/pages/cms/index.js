@@ -24,6 +24,9 @@ import DaftarMember from "./member";
 
 import Penjualan from "./penjualan";
 
+import TransaksiKomisi from "./transaksi/komisi";
+import TransaksiPenjualan from "./transaksi";
+
 import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
 import useStyles from "./styles";
 
@@ -35,6 +38,7 @@ function ResponsiveDrawer(props) {
 
   const [product, setProduct] = React.useState(false);
   const [member, setMember] = React.useState(false);
+  const [transaksi, setTransaksi] = React.useState(false);
 
   const handleClickProduct = () => {
     setProduct(!product);
@@ -42,6 +46,10 @@ function ResponsiveDrawer(props) {
 
   const handleClickMember = () => {
     setMember(!member);
+  };
+
+  const handleClickTransaksi = () => {
+    setTransaksi(!transaksi);
   };
 
   const handleDrawerToggle = () => {
@@ -92,9 +100,19 @@ function ResponsiveDrawer(props) {
     },
     {
       value: "Transaksi",
-      sub: [],
-      link: "transaksi",
-      component: "<Transaksi />",
+      sub: [
+        {
+          value: "Komisi",
+          link: "transaksi/komisi",
+          component: <TransaksiKomisi />,
+        },
+        {
+          value: "Penjualan",
+          link: "transaksi",
+          component: <TransaksiPenjualan />,
+        },
+      ],
+      expand: true,
       icon: "/img/cms/sidebar/transaction-icon.png",
     },
   ];
@@ -115,6 +133,8 @@ function ResponsiveDrawer(props) {
                   ? handleClickProduct
                   : menu.value === "Member"
                   ? handleClickMember
+                  : menu.value === "Transaksi"
+                  ? handleClickTransaksi
                   : null
               }
               component={menu.expand === true ? null : Link}
@@ -136,6 +156,12 @@ function ResponsiveDrawer(props) {
                 ) : (
                   <ExpandMore />
                 )
+              ) : menu.value === "Transaksi" ? (
+                transaksi ? (
+                  <ExpandLess />
+                ) : (
+                  <ExpandMore />
+                )
               ) : null}
             </ListItem>
             <Collapse
@@ -144,6 +170,8 @@ function ResponsiveDrawer(props) {
                   ? product
                   : menu.value === "Member"
                   ? member
+                  : menu.value === "Transaksi"
+                  ? transaksi
                   : null
               }
               timeout="auto"
