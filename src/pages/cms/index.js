@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
+import { CMSContext } from "../../context/state";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -34,11 +35,16 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
+  const { fetchProduk } = useContext(CMSContext);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const [product, setProduct] = React.useState(false);
   const [member, setMember] = React.useState(false);
   const [transaksi, setTransaksi] = React.useState(false);
+
+  useEffect(() => {
+    fetchProduk();
+  }, []);
 
   const handleClickProduct = () => {
     setProduct(!product);
@@ -138,7 +144,7 @@ function ResponsiveDrawer(props) {
                   : null
               }
               component={menu.expand === true ? null : Link}
-              to={menu.expand === true ? null : `${url}/${menu.link}`}
+              to={menu.expand === true ? null : `/${menu.link}`}
             >
               <ListItemIcon>
                 <img src={menu.icon} alt={menu.value} />
@@ -184,7 +190,7 @@ function ResponsiveDrawer(props) {
                     key={submenu.value}
                     className={classes.nested}
                     component={Link}
-                    to={`${url}/${submenu.link}`}
+                    to={`/${submenu.link}`}
                   >
                     <ListItemText primary={submenu.value} />
                   </ListItem>
@@ -222,11 +228,11 @@ function ResponsiveDrawer(props) {
           <Typography variant="h5" noWrap>
             {menus.map((menu) => (
               <Switch>
-                <Route path={`${url}/${menu.link}`}>
+                <Route path={`/${menu.link}`}>
                   <b>{menu.value}</b>
                 </Route>
                 {menu.sub.map((submenu) => (
-                  <Route path={`${url}/${submenu.link}`}>
+                  <Route path={`/${submenu.link}`}>
                     <b>{submenu.value}</b>
                   </Route>
                 ))}
@@ -270,9 +276,9 @@ function ResponsiveDrawer(props) {
         <div className={classes.toolbar} />
         {menus.map((menu) => (
           <Switch>
-            <Route path={`${url}/${menu.link}`}>{menu.component}</Route>
+            <Route path={`/${menu.link}`}>{menu.component}</Route>
             {menu.sub.map((submenu) => (
-              <Route path={`${url}/${submenu.link}`}>{submenu.component}</Route>
+              <Route path={`/${submenu.link}`}>{submenu.component}</Route>
             ))}
           </Switch>
         ))}

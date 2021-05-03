@@ -18,7 +18,8 @@ import {
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
 import useStyles from "./styles";
 
-export default function BasicTable() {
+export default function BasicTable(props) {
+  console.log(props, "<<props");
   const classes = useStyles();
 
   // Aktif
