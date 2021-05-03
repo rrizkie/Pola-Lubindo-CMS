@@ -1,11 +1,7 @@
-import CMS from "./pages/cms";
+import CMS from "./pages";
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Provider } from "./context/state";
-
-function Home() {
-  return <h2>Home</h2>;
-}
 
 function App() {
   return (
