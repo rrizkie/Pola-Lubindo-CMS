@@ -4,7 +4,6 @@ import Table from "../../components/member/daftar/Table";
 export default function Index(params) {
   return (
     <>
-      a
       <Button />
       <Table />
     </>
