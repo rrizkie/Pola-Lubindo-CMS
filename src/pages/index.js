@@ -39,7 +39,7 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const { fetchProduk } = useContext(CMSContext);
+  const { fetchProduk, autoLogin } = useContext(CMSContext);
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const [product, setProduct] = React.useState(false);
@@ -48,6 +48,7 @@ function ResponsiveDrawer(props) {
 
   useEffect(() => {
     fetchProduk();
+    autoLogin();
   }, []);
 
   const handleClickProduct = () => {

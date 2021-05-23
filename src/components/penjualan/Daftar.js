@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   Breadcrumbs,
   Button,
@@ -12,9 +12,16 @@ import {
 import { Link } from "react-router-dom";
 import QueryBuilderOutlinedIcon from "@material-ui/icons/QueryBuilderOutlined";
 import useStyles from "./styles";
+import { CMSContext } from "../../context/state";
 
 export default function BasicTable() {
   const classes = useStyles();
+  const { transaksi, fetchTransaksi } = useContext(CMSContext);
+  console.log(transaksi);
+
+  useEffect(() => {
+    fetchTransaksi();
+  }, []);
 
   const [pilih, setPilih] = React.useState({
     checkedA: true,
@@ -208,7 +215,7 @@ export default function BasicTable() {
         <Button variant="outlined">cetak resi</Button>
         <Button variant="outlined">cetak label</Button>
       </form>
-      {allPesanan.map((field) => (
+      {transaksi.map((item) => (
         <Paper className={classes.paper}>
           <Grid container spacing={3}>
             <Grid item xs={8}>
@@ -223,41 +230,42 @@ export default function BasicTable() {
                   }
                   label={
                     <Typography color="textPrimary">
-                      pesanan diproses
+                      {item.statusPesanan}
                     </Typography>
                   }
                 />
                 <Link color="inherit" href="/">
-                  {field.no_invoice}
+                  {item.invoice}
                 </Link>
                 <Link color="inherit" href="/getting-started/installation/">
-                  {field.nm_pemesan}
+                  {item.namaPenerima}
                 </Link>
                 <Typography color="textPrimary">
-                  {field.tgl_pemesanan} | {field.jm_pemesanan}
+                  {item.createdAt.split("T")[0]} |{" "}
+                  {item.createdAt.split("T")[1].split(".")[0]}
                 </Typography>
               </Breadcrumbs>
             </Grid>
             <Grid item xs={4} className={classes.grid_align_right}>
-              {field.status_respons}
+              <BatasRespons />
             </Grid>
           </Grid>
           <Grid container spacing={3} className={classes.grid_border_top}>
             <Grid item xs={4}>
-              {field.produk.map((sub_field) => (
-                <Grid container spacing={3} key={sub_field.nm_produk}>
+              {item.Carts.map((produk) => (
+                <Grid container spacing={3} key={produk.Produk.id}>
                   <Grid item xs={3}>
                     <img
-                      src={sub_field.gmbr_produk}
-                      alt={sub_field.nm_produk}
+                      src={produk.Produk.fotoProduk}
+                      alt={produk.Produk.namaProduk}
                       width="50"
                       height="50"
                     />
                   </Grid>
                   <Grid item xs={9}>
-                    {sub_field.nm_produk}
+                    {produk.Produk.namaProduk}
                     <br />
-                    {sub_field.jumlah} x Rp. {sub_field.harga}
+                    {produk.qty} x Rp. {produk.Produk.hargaSatuan}
                   </Grid>
                 </Grid>
               ))}
@@ -266,14 +274,14 @@ export default function BasicTable() {
               <Typography color="textPrimary">
                 Alamat
                 <br />
-                {field.alamat}
+                {item.alamatPengiriman}
               </Typography>
             </Grid>
             <Grid item xs={3} className={classes.grid_border_left}>
               <Typography color="textPrimary">
-                Kurir {field.kurir}
+                Kurir JNE
                 <br />
-                Rp {field.ongkos_kirim}
+                Rp {item.ongkosKirim}
               </Typography>
             </Grid>
           </Grid>
@@ -283,7 +291,7 @@ export default function BasicTable() {
               <Link href="#" onClick={() => setLihat(!lihat)}>
                 {lihat ? "tutup" : "lihat"}
               </Link>
-              {lihat ? (
+              {/* {lihat ? (
                 <Paper className={classes.paper}>
                   {field.produk.map((sub_field) => (
                     <Grid container spacing={3}>
@@ -307,13 +315,13 @@ export default function BasicTable() {
                     </Grid>
                   ))}
                 </Paper>
-              ) : null}
+              ) : null} */}
               <br />
               Total bayar
             </Grid>
             <Grid item xs={3} className={classes.grid_align_right}>
               <Typography color="textPrimary">
-                <b>Rp. {field.total_biaya}</b>
+                <b>Rp. {item.jumlahBayar}</b>
               </Typography>
             </Grid>
           </Grid>
@@ -324,9 +332,9 @@ export default function BasicTable() {
             className={classes.grid_border_top}
           >
             <Grid item xs={4}>
-              sales by: {field.sales_by}
+              {/* sales by: {field.sales_by} */}
             </Grid>
-            {field.action}
+            <BtnPesanan />
           </Grid>
         </Paper>
       ))}

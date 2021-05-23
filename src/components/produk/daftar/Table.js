@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Button,
   Checkbox,
@@ -17,10 +17,12 @@ import {
 } from "@material-ui/core";
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
 import useStyles from "./styles";
+import { CMSContext } from "../../../context/state";
 
-export default function BasicTable(props) {
-  console.log(props, "<<props");
+export default function BasicTable() {
   const classes = useStyles();
+  const { produk } = useContext(CMSContext);
+  console.log(produk);
 
   // Aktif
   const IOSSwitch = () => {
@@ -38,13 +40,9 @@ export default function BasicTable(props) {
       />
     );
   };
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-  });
+  const [statusProduk, setStatusProduk] = React.useState(true);
   const handleActive = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setStatusProduk(!statusProduk);
   };
 
   // Checkbox
@@ -66,12 +64,6 @@ export default function BasicTable(props) {
   const handleAction = (event) => {
     setAction(event.target.value);
   };
-
-  // Table
-  function createData(info_produk, judul_produk, sku, harga, stok, aktif) {
-    return { info_produk, judul_produk, sku, harga, stok, aktif };
-  }
-  const rows = [createData(checked, "Judul Produk", 99, 0, 0, state.checkedB)];
 
   return (
     <TableContainer
@@ -124,11 +116,11 @@ export default function BasicTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {produk.map((item) => (
+            <TableRow key={item.id}>
               <TableCell>
                 <Checkbox
-                  checked={row.info_produk}
+                  // checked={row.info_produk}
                   onChange={handleChecked}
                   inputProps={{ "aria-label": "Checkbox" }}
                 />
@@ -137,16 +129,16 @@ export default function BasicTable(props) {
                 <Grid container spacing={3}>
                   <Grid item xs={3}>
                     <img
-                      src="/img/cms/botol-oli.png"
+                      src="https://cf.shopee.co.id/file/34f04fdc88d0948d47fc9e658306fb02"
                       alt="Botol Oli"
                       width="50"
                       height="50"
                     />
                   </Grid>
                   <Grid item xs={9}>
-                    {row.judul_produk}
+                    {item.namaProduk}
                     <br />
-                    SKU: {row.sku}
+                    SKU: {item.sku}
                   </Grid>
                 </Grid>
               </TableCell>
@@ -154,7 +146,7 @@ export default function BasicTable(props) {
                 <TextField
                   variant="outlined"
                   size="small"
-                  value={row.harga}
+                  value={item.hargaSatuan}
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">Rp.</InputAdornment>
@@ -163,11 +155,11 @@ export default function BasicTable(props) {
                 />
               </TableCell>
               <TableCell>
-                <TextField variant="outlined" size="small" value={row.stok} />
+                <TextField variant="outlined" size="small" value={item.stock} />
               </TableCell>
               <TableCell>
                 <IOSSwitch
-                  checked={row.aktif}
+                  checked={item.statusProduk}
                   onChange={handleActive}
                   name="checkedB"
                 />

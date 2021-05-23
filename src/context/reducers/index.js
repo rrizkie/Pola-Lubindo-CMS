@@ -4,7 +4,12 @@ const CMSReducer = (state, action) => {
       return {
         ...state,
         produk: action.payload,
-      }; 
+      };
+    case "FETCH_TRANSAKSI":
+      return {
+        ...state,
+        transaksi: action.payload,
+      };
     default:
       return state;
   }
