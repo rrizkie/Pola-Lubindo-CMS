@@ -14,7 +14,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Link,
 } from "@material-ui/core";
 
 import useStyles from "./styles";
