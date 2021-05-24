@@ -11,6 +11,7 @@ export const CMSContext = createContext(initialState);
 
 export const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(CMSReducer, initialState);
+  console.log(state, "global state");
 
   const autoLogin = async () => {
     const loginData = {
@@ -42,6 +43,16 @@ export const Provider = ({ children }) => {
     dispatch({ type: "FETCH_TRANSAKSI", payload: data });
   };
 
+  const konfirmasiTransaksi = async (newData) => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/konfirmasi-transaksi`, {
+      method: "POST",
+      headers: { access_token, "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    });
+    data = await data.json();
+  };
+
   return (
     <CMSContext.Provider
       value={{
@@ -50,6 +61,7 @@ export const Provider = ({ children }) => {
         fetchProduk,
         fetchTransaksi,
         autoLogin,
+        konfirmasiTransaksi,
       }}
       {...{ children }}
     />
