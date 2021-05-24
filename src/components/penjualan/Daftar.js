@@ -62,6 +62,12 @@ export default function BasicTable({ item }) {
     konfirmasiTransaksi(rowData);
   };
 
+  const handleTolak = (rowData) => {
+    console.log(rowData);
+
+    
+  };
+
   function BatasRespons(params) {
     return (
       <Typography color="textPrimary">
@@ -226,7 +232,11 @@ export default function BasicTable({ item }) {
           </Grid>
           {item.statusPesanan === "menunggu konfirmasi" ? (
             <Grid item xs={8} className={classes.grid_align_right}>
-              <Button variant="outlined" className={classes.tolak_pesanan}>
+              <Button
+                variant="outlined"
+                className={classes.tolak_pesanan}
+                onClick={() => handleTolak(item)}
+              >
                 tolak pesanan
               </Button>
               &emsp;

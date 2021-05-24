@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { InputAdornment, MenuItem, TextField } from "@material-ui/core";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import useStyles from "./styles";
