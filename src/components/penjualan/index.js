@@ -1,20 +1,60 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
-  Breadcrumbs,
   Button,
-  Checkbox,
-  FormControlLabel,
-  Grid,
+  InputAdornment,
+  MenuItem,
   Paper,
   TextField,
   Typography,
+  Box,
+  Breadcrumbs,
+  Checkbox,
+  FormControlLabel,
+  Grid,
 } from "@material-ui/core";
-import { Link } from "react-router-dom";
+
+import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import QueryBuilderOutlinedIcon from "@material-ui/icons/QueryBuilderOutlined";
+
 import useStyles from "./styles";
 
-export default function BasicTable() {
+import { Link } from "react-router-dom";
+
+export default function Index() {
   const classes = useStyles();
+
+  function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+      <div
+        role="tabpanel"
+        hidden={value !== index}
+        id={`simple-tabpanel-${index}`}
+        aria-labelledby={`simple-tab-${index}`}
+        {...other}
+      >
+        {value === index && (
+          <Box p={3}>
+            <Typography>{children}</Typography>
+          </Box>
+        )}
+      </div>
+    );
+  }
+
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
+
+  const [filter, setFilter] = React.useState("");
+
+  const handleFilter = (event) => {
+    setFilter(event.target.value);
+  };
 
   const [pilih, setPilih] = React.useState({
     checkedA: true,
@@ -191,8 +231,57 @@ export default function BasicTable() {
       action: <NomorResi />,
     },
   ];
+
+  const views = [
+    { value: "semua produk" },
+    { value: "aktif" },
+    { value: "tidak aktif" },
+  ];
+  const [view, setView] = React.useState("semua produk");
   return (
     <>
+      <form className={classes.form_kategori} noValidate autoComplete="off">
+        <TextField
+          variant="outlined"
+          size="small"
+          label="Cari nama, produk, nomor resi, invoice"
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <SearchOutlinedIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
+          variant="outlined"
+          size="small"
+          select
+          value={filter}
+          onChange={handleFilter}
+          label="pilih filter"
+          style={{ width: 120 }}
+        >
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </TextField>
+        <TextField
+          id="date"
+          type="date"
+          defaultValue="2017-05-24"
+          className={classes.textField}
+          InputLabelProps={{
+            shrink: true,
+          }}
+          variant="outlined"
+          size="small"
+        />
+        <Button variant="outlined" disableElevation className={classes.button}>
+          unduh laporan penjualan
+        </Button>
+      </form>
+
       <form className={classes.form_daftar} noValidate autoComplete="off">
         <FormControlLabel
           control={
@@ -205,8 +294,28 @@ export default function BasicTable() {
           label="1 pesanan terpilih"
         />
 
-        <Button variant="outlined">cetak resi</Button>
-        <Button variant="outlined">cetak label</Button>
+        <Button variant="outlined" className={classes.form_daftar_btn}>
+          cetak resi
+        </Button>
+        <Button variant="outlined" className={classes.form_daftar_btn}>
+          cetak label
+        </Button>
+
+        {views.map((option) => (
+          <Button
+            key={option.value}
+            onClick={() => setView(option.value)}
+            style={{
+              borderBottom:
+                view === option.value ? "2px solid red" : "2px solid black",
+              borderRadius: 0,
+              color: view === option.value ? "red" : null,
+            }}
+            className={classes.form_daftar_btn}
+          >
+            <b>{option.value}</b>
+          </Button>
+        ))}
       </form>
       {allPesanan.map((field) => (
         <Paper className={classes.paper}>

@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     minWidth: 275,
     borderRadius: 20,
+    padding: "20px 25px",
   },
   bullet: {
     display: "inline-block",
