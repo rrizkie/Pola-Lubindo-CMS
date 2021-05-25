@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { CMSContext } from "../../../context/state";
 import {
   Button,
   Checkbox,
@@ -20,66 +21,26 @@ import useStyles from "./styles";
 
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
 
+import ProdukCard from "../produkCard";
+
 export default function Index(params) {
   const classes = useStyles();
+  const { autoLogin, fetchProduk, produk } = useContext(CMSContext);
+  const [view, setView] = React.useState("semua produk");
 
-  // Aktif
-  const IOSSwitch = () => {
-    return (
-      <Switch
-        focusVisibleClassName={classes.focusVisible}
-        disableRipple
-        classes={{
-          root: classes.switch,
-          switchBase: classes.switchBase,
-          thumb: classes.thumb,
-          track: classes.track,
-          checked: classes.checked,
-        }}
-      />
-    );
-  };
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-  });
-  const handleActive = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  const aktif = produk.filter((el) => el.statusProduk === true);
+  const tidakAktif = produk.filter((el) => el.statusProduk === false);
 
-  // Checkbox
-  const [checked, setChecked] = React.useState(true);
-  const handleChecked = (event) => {
-    setChecked(event.target.checked);
-  };
-
-  // Actions
-  const actions = [
-    {
-      value: "edit",
-    },
-    {
-      value: "hapus",
-    },
-  ];
-  const [action, setAction] = React.useState("");
-  const handleAction = (event) => {
-    setAction(event.target.value);
-  };
-
-  // Table
-  function createData(info_produk, judul_produk, sku, harga, stok, aktif) {
-    return { info_produk, judul_produk, sku, harga, stok, aktif };
-  }
-  const rows = [createData(checked, "Judul Produk", 99, 0, 0, state.checkedB)];
+  useEffect(() => {
+    autoLogin();
+    fetchProduk();
+  }, []);
 
   const views = [
     { value: "semua produk" },
     { value: "aktif" },
     { value: "tidak aktif" },
   ];
-  const [view, setView] = React.useState("semua produk");
 
   return (
     <>
@@ -159,72 +120,11 @@ export default function Index(params) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row) => (
-              <TableRow key={row.name}>
-                <TableCell>
-                  <Checkbox
-                    checked={row.info_produk}
-                    onChange={handleChecked}
-                    inputProps={{ "aria-label": "Checkbox" }}
-                  />
-                </TableCell>
-                <TableCell>
-                  <Grid container spacing={3}>
-                    <Grid item xs={3}>
-                      <img
-                        src="/img/cms/botol-oli.png"
-                        alt="Botol Oli"
-                        width="50"
-                        height="50"
-                      />
-                    </Grid>
-                    <Grid item xs={9}>
-                      {row.judul_produk}
-                      <br />
-                      SKU: {row.sku}
-                    </Grid>
-                  </Grid>
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    variant="outlined"
-                    size="small"
-                    value={row.harga}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">Rp.</InputAdornment>
-                      ),
-                    }}
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField variant="outlined" size="small" value={row.stok} />
-                </TableCell>
-                <TableCell>
-                  <IOSSwitch
-                    checked={row.aktif}
-                    onChange={handleActive}
-                    name="checkedB"
-                  />
-                </TableCell>
-                <TableCell>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    value={action}
-                    onChange={handleAction}
-                    variant="outlined"
-                    size="small"
-                  >
-                    {actions.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.value}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                </TableCell>
-              </TableRow>
-            ))}
+            {view === "semua produk"
+              ? produk.map((row) => <ProdukCard row={row} />)
+              : view === "aktif"
+              ? aktif.map((row) => <ProdukCard row={row} />)
+              : tidakAktif.map((row) => <ProdukCard row={row} />)}
           </TableBody>
         </Table>
       </TableContainer>
