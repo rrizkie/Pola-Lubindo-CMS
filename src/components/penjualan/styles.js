@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   // button
-  button: { marginBottom: 20 },
 
   // Kategori
   root: {
@@ -29,6 +28,11 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
+
+  form_daftar_btn: {
+    width: 136,
+  },
+
   paper: {
     padding: theme.spacing(2),
     color: theme.palette.text.secondary,

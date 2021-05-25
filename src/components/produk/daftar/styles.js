@@ -1,6 +1,11 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  // Filter
+  filter: {
+    marginBottom: 20,
+  },
+
   // Table
   table: {
     minWidth: 650,
@@ -8,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   table_container: { borderRadius: 20 },
 
   // Tambah Produk
-  tambah_produk: { marginBottom: 20, backgroundColor: "red" },
+  tambah_produk: { marginRight: 30, backgroundColor: "red" },
 
   // Switch
   switch: {
