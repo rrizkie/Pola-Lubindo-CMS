@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Provider } from "./context/state";
 import PropTypes from "prop-types";
 
 import {
@@ -204,99 +205,96 @@ function App(props) {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Router>
-      {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-      <Switch>
-        <Route path="/">
-          <div className={classes.root}>
-            <CssBaseline />
-            <AppBar
-              position="fixed"
-              className={classes.appBar}
-              color="inherit"
-              elevation={0}
-            >
-              <Toolbar>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  edge="start"
-                  onClick={handleDrawerToggle}
-                  className={classes.menuButton}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Typography variant="h5" noWrap>
-                  {menus.map((menu) => (
-                    <Switch>
-                      <Route path={`/${menu.link}`}>
-                        <b>{menu.value}</b>
-                      </Route>
-                      {menu.sub.map((submenu) => (
-                        <Route path={`/${submenu.link}`}>
-                          <b>{submenu.value}</b>
+    <Provider>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <div className={classes.root}>
+              <CssBaseline />
+              <AppBar
+                position="fixed"
+                className={classes.appBar}
+                color="inherit"
+                elevation={0}
+              >
+                <Toolbar>
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    edge="start"
+                    onClick={handleDrawerToggle}
+                    className={classes.menuButton}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography variant="h5" noWrap>
+                    {menus.map((menu) => (
+                      <Switch>
+                        <Route path={`/${menu.link}`}>
+                          <b>{menu.value}</b>
                         </Route>
-                      ))}
-                    </Switch>
-                  ))}
-                </Typography>
-              </Toolbar>
-            </AppBar>
-            <nav className={classes.drawer} aria-label="mailbox folders">
-              {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-              <Hidden smUp implementation="css">
-                <Drawer
-                  container={container}
-                  variant="temporary"
-                  anchor={theme.direction === "rtl" ? "right" : "left"}
-                  open={mobileOpen}
-                  onClose={handleDrawerToggle}
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                  ModalProps={{
-                    keepMounted: true, // Better open performance on mobile.
-                  }}
-                >
-                  {drawer}
-                </Drawer>
-              </Hidden>
-              <Hidden xsDown implementation="css">
-                <Drawer
-                  classes={{
-                    paper: classes.drawerPaper,
-                  }}
-                  variant="permanent"
-                  open
-                >
-                  {drawer}
-                </Drawer>
-              </Hidden>
-            </nav>
-            <main className={classes.content}>
-              <div className={classes.toolbar} />
-              {menus.map((menu) => (
-                <Switch>
-                  <Route path={`/${menu.link}`}>{menu.component}</Route>
-                  {menu.sub.map((submenu) => (
-                    <Route path={`/${submenu.link}`}>{submenu.component}</Route>
-                  ))}
-                </Switch>
-              ))}
-            </main>
-          </div>
-        </Route>
-      </Switch>
-    </Router>
+                        {menu.sub.map((submenu) => (
+                          <Route path={`/${submenu.link}`}>
+                            <b>{submenu.value}</b>
+                          </Route>
+                        ))}
+                      </Switch>
+                    ))}
+                  </Typography>
+                </Toolbar>
+              </AppBar>
+              <nav className={classes.drawer} aria-label="mailbox folders">
+                <Hidden smUp implementation="css">
+                  <Drawer
+                    container={container}
+                    variant="temporary"
+                    anchor={theme.direction === "rtl" ? "right" : "left"}
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                    ModalProps={{
+                      keepMounted: true,
+                    }}
+                  >
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                  <Drawer
+                    classes={{
+                      paper: classes.drawerPaper,
+                    }}
+                    variant="permanent"
+                    open
+                  >
+                    {drawer}
+                  </Drawer>
+                </Hidden>
+              </nav>
+              <main className={classes.content}>
+                <div className={classes.toolbar} />
+                {menus.map((menu) => (
+                  <Switch>
+                    <Route path={`/${menu.link}`}>{menu.component}</Route>
+                    {menu.sub.map((submenu) => (
+                      <Route path={`/${submenu.link}`}>
+                        {submenu.component}
+                      </Route>
+                    ))}
+                  </Switch>
+                ))}
+              </main>
+            </div>
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   );
 }
 
 App.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
