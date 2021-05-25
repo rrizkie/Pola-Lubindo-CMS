@@ -43,6 +43,7 @@ export const Provider = ({ children }) => {
     dispatch({ type: "FETCH_TRANSAKSI", payload: data });
   };
 
+<<<<<<< HEAD
   const fetchBrand = async () => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(`http://localhost:3000/brand`, {
@@ -53,6 +54,8 @@ export const Provider = ({ children }) => {
     dispatch({ type: "FETCH_BRAND", payload: data });
   };
 
+=======
+>>>>>>> a24d092 (integrate daftar produk)
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(
@@ -131,8 +134,11 @@ export const Provider = ({ children }) => {
         autoLogin,
         tambahProduk,
         konfirmasiTransaksi,
+<<<<<<< HEAD
         tolakPesanan,
         inputResi,
+=======
+>>>>>>> a24d092 (integrate daftar produk)
         ubahStatusProduk,
         deleteproduk,
       }}
