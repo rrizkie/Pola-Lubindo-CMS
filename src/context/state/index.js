@@ -45,6 +45,7 @@ export const Provider = ({ children }) => {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 1f7ac98 (global state tambah produk)
   const fetchBrand = async () => {
@@ -62,6 +63,8 @@ export const Provider = ({ children }) => {
 >>>>>>> a24d092 (integrate daftar produk)
 =======
 >>>>>>> 1f7ac98 (global state tambah produk)
+=======
+>>>>>>> a24d092 (integrate daftar produk)
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(
@@ -169,6 +172,7 @@ export const Provider = ({ children }) => {
         konfirmasiTransaksi,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         tolakPesanan,
         inputResi,
 =======
@@ -180,6 +184,8 @@ export const Provider = ({ children }) => {
 =======
         inputResi,
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
+=======
+>>>>>>> a24d092 (integrate daftar produk)
         ubahStatusProduk,
         deleteproduk,
       }}
