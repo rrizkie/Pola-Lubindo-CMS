@@ -44,6 +44,9 @@ export const Provider = ({ children }) => {
   };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1f7ac98 (global state tambah produk)
   const fetchBrand = async () => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(`http://localhost:3000/brand`, {
@@ -54,8 +57,11 @@ export const Provider = ({ children }) => {
     dispatch({ type: "FETCH_BRAND", payload: data });
   };
 
+<<<<<<< HEAD
 =======
 >>>>>>> a24d092 (integrate daftar produk)
+=======
+>>>>>>> 1f7ac98 (global state tambah produk)
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(
@@ -118,6 +124,13 @@ export const Provider = ({ children }) => {
       headers: {
         "content-type": "multipart/form-data",
       },
+      body: JSON.stringify(input),
+    });
+  };
+
+  const tambahProduk = async (input) => {
+    const data = await fetch(`http://localhost:3000/upload`, {
+      method: "POST",
       body: JSON.stringify(input),
     });
   };
