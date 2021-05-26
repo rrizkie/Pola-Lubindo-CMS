@@ -242,9 +242,12 @@ export default function Index() {
   ];
 
   const views = [
-    { value: "semua produk" },
-    { value: "aktif" },
-    { value: "tidak aktif" },
+    { value: "semua pesanan" },
+    { value: "pesanan baru" },
+    { value: "siap dikirim" },
+    { value: "dalam pengiriman" },
+    { value: "pesanan selesai" },
+    { value: "pesanan ditolak" },
   ];
   const [view, setView] = React.useState("semua produk");
   return (
