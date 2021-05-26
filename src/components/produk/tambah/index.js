@@ -127,10 +127,14 @@ function ResponsiveDrawer() {
                 alt="Placeholder"
                 id="img"
                 style={{ width: "180px", height: "auto" }}
+<<<<<<< HEAD
 >>>>>>> 1f7ac98 (global state tambah produk)
 =======
 >>>>>>> 814a172 (REVISI 27 MEI 2021)
+=======
+>>>>>>> 1f7ac98 (global state tambah produk)
               />
+              <input type="file" accept=".jpg" onChange={handleImage} />
             </Grid>
           </Grid>
         </Card>
