@@ -43,6 +43,16 @@ export const Provider = ({ children }) => {
     dispatch({ type: "FETCH_TRANSAKSI", payload: data });
   };
 
+  const fetchBrand = async () => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/brand`, {
+      method: "GET",
+      headers: { access_token, "Content-Type": "application/json" },
+    });
+    data = await data.json();
+    dispatch({ type: "FETCH_BRAND", payload: data });
+  };
+
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(
@@ -76,14 +86,24 @@ export const Provider = ({ children }) => {
     data = await data.json();
   };
 
+  const tambahProduk = async (input) => {
+    const data = await fetch(`http://localhost:3000/upload`, {
+      method: "POST",
+      body: JSON.stringify(input),
+    });
+  };
+
   return (
     <CMSContext.Provider
       value={{
         produk: state.produk,
+        brand: state.brand,
         transaksi: state.transaksi,
         fetchProduk,
         fetchTransaksi,
+        fetchBrand,
         autoLogin,
+        tambahProduk,
         konfirmasiTransaksi,
         ubahStatusProduk,
         deleteproduk,

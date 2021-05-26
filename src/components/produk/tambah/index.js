@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Grid,
   Card,
@@ -8,43 +8,41 @@ import {
   InputAdornment,
   FormControlLabel,
   Switch,
-  FormControl,
   MenuItem,
-  Radio,
-  RadioGroup,
   Button,
 } from "@material-ui/core";
 
 import useStyles from "./styles";
+import { CMSContext } from "../../../context/state";
 
 function ResponsiveDrawer() {
   const classes = useStyles();
-
-  const IOSSwitch = () => {
-    return (
-      <Switch
-        focusVisibleClassName={classes.focusVisible}
-        disableRipple
-        classes={{
-          root: classes.switch,
-          switchBase: classes.switchBase,
-          thumb: classes.thumb,
-          track: classes.track,
-          checked: classes.checked,
-        }}
-      />
-    );
-  };
-
-  const [state, setState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
+  const { brand, fetchBrand, tambahProduk } = useContext(CMSContext);
+  const [file, setFile] = useState("/img/cms/photo-product-placeholder.png");
+  const [weight, setWeight] = useState("gram");
+  const [input, setInput] = useState({
+    fotoProduk: "",
+    namaProduk: "",
+    brandId: "",
+    deskripsi: "",
+    minPesanan: "",
+    hargaSatuan: "",
+    hargaGrosir: "",
+    statusProduk: false,
+    stock: "",
+    sku: "",
+    weight: "",
+    panjang: "",
+    lebar: "",
+    tinggi: "",
+    komisiStatus: "",
+    komisi: "",
+    levelKomisi: "",
   });
 
-  const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
-  };
+  useEffect(() => {
+    fetchBrand();
+  }, []);
 
   const weights = [
     {
@@ -55,17 +53,33 @@ function ResponsiveDrawer() {
     },
   ];
 
-  const [weight, setWeight] = React.useState("gram");
+  const send = (e) => {
+    const data = new FormData();
+    data.append("data", input);
+    data.append("file", file);
+
+    console.log(data);
+    tambahProduk(data);
+  };
+
+  const handleInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
 
   const handleChangeWeight = (event) => {
     setWeight(event.target.value);
   };
 
-  const handleChangePreorder = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+  const handleImage = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        setFile(e.target.result);
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
-  const RedRadio = () => <Radio color="default" className={classes.checkbox} />;
   return (
     <Grid
       container
@@ -89,9 +103,12 @@ function ResponsiveDrawer() {
             </Grid>
             <Grid item xs={9}>
               <img
-                src="/img/cms/photo-product-placeholder.png"
+                src={file}
                 alt="Placeholder"
+                id="img"
+                style={{ width: "180px", height: "auto" }}
               />
+              <input type="file" accept=".jpg" onChange={handleImage} />
             </Grid>
           </Grid>
         </Card>
@@ -115,6 +132,8 @@ function ResponsiveDrawer() {
                   fullWidth
                   helperText="0/70"
                   style={{ height: "100%" }}
+                  name="namaProduk"
+                  onChange={handleInput}
                 />
               </Grid>
             </Grid>
@@ -130,7 +149,15 @@ function ResponsiveDrawer() {
                   size="small"
                   select
                   style={{ width: "40%" }}
-                />
+                  name="brandId"
+                  onChange={handleInput}
+                >
+                  {brand.map((item) => (
+                    <MenuItem key={item.id} value={item.id}>
+                      {item.namaBrand}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
             </Grid>
           </CardContent>
@@ -156,11 +183,13 @@ function ResponsiveDrawer() {
                   helperText="0/2000"
                   multiline
                   rows={10}
+                  name="deskripsi"
+                  onChange={handleInput}
                 />
               </Grid>
             </Grid>
 
-            <Grid container spacing={5} alignItems="center">
+            {/* <Grid container spacing={5} alignItems="center">
               <Grid item xs={2}>
                 <Typography variant="body2" component="p" gutterBottom>
                   Video Produk
@@ -171,9 +200,9 @@ function ResponsiveDrawer() {
                   + Tambah URL Video
                 </Button>
               </Grid>
-            </Grid>
+            </Grid> */}
 
-            <Grid container spacing={5} alignItems="center">
+            {/* <Grid container spacing={5} alignItems="center">
               <Grid item xs={2}>
                 <Typography variant="body2" component="p" gutterBottom>
                   TDS Produk
@@ -184,9 +213,9 @@ function ResponsiveDrawer() {
                   + Tambah URL TDS
                 </Button>
               </Grid>
-            </Grid>
+            </Grid> */}
 
-            <Grid container spacing={5} alignItems="center">
+            {/* <Grid container spacing={5} alignItems="center">
               <Grid item xs={2}>
                 <Typography variant="body2" component="p" gutterBottom>
                   MSDS Produk
@@ -197,9 +226,9 @@ function ResponsiveDrawer() {
                   + Tambah URL MSDS
                 </Button>
               </Grid>
-            </Grid>
+            </Grid> */}
 
-            <Grid container spacing={5} alignItems="center">
+            {/* <Grid container spacing={5} alignItems="center">
               <Grid item xs={2}>
                 <Typography variant="body2" component="p" gutterBottom>
                   Sertifikasi
@@ -217,7 +246,7 @@ function ResponsiveDrawer() {
                   + Tambah URL Sertifikasi
                 </Button>
               </Grid>
-            </Grid>
+            </Grid> */}
           </CardContent>
         </Card>
       </Grid>
@@ -239,6 +268,8 @@ function ResponsiveDrawer() {
                   size="small"
                   fullWidth
                   value="1"
+                  name="minPesanan"
+                  onChange={handleInput}
                 />
               </Grid>
             </Grid>
@@ -258,6 +289,8 @@ function ResponsiveDrawer() {
                       <InputAdornment position="start">Rp.</InputAdornment>
                     ),
                   }}
+                  name="hargaSatuan"
+                  onChange={handleInput}
                 />
               </Grid>
             </Grid>
@@ -292,10 +325,14 @@ function ResponsiveDrawer() {
               <Grid item xs={10}>
                 <FormControlLabel
                   control={
-                    <IOSSwitch
-                      checked={state.checkedB}
-                      onChange={handleChange}
-                      name="checkedB"
+                    <Switch
+                      checked={input.statusProduk}
+                      onChange={() =>
+                        setInput({
+                          ...input,
+                          statusProduk: !input.statusProduk,
+                        })
+                      }
                     />
                   }
                   label="Aktif"
@@ -310,7 +347,13 @@ function ResponsiveDrawer() {
                 </Typography>
               </Grid>
               <Grid item xs={10}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="stock"
+                  onChange={handleInput}
+                />
               </Grid>
             </Grid>
 
@@ -321,7 +364,13 @@ function ResponsiveDrawer() {
                 </Typography>
               </Grid>
               <Grid item xs={10}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="sku"
+                  onChange={handleInput}
+                />
               </Grid>
             </Grid>
           </CardContent>
@@ -356,7 +405,13 @@ function ResponsiveDrawer() {
                 </TextField>
               </Grid>
               <Grid item xs={8}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="weight"
+                  onChange={handleInput}
+                />
               </Grid>
             </Grid>
 
@@ -376,6 +431,8 @@ function ResponsiveDrawer() {
                       <InputAdornment position="start">cm</InputAdornment>
                     ),
                   }}
+                  name="panjang"
+                  onChange={handleInput}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -388,6 +445,8 @@ function ResponsiveDrawer() {
                       <InputAdornment position="start">cm</InputAdornment>
                     ),
                   }}
+                  name="lebar"
+                  onChange={handleInput}
                 />
               </Grid>
               <Grid item xs={2}>
@@ -400,11 +459,13 @@ function ResponsiveDrawer() {
                       <InputAdornment position="start">cm</InputAdornment>
                     ),
                   }}
+                  name="tinggi"
+                  onChange={handleInput}
                 />
               </Grid>
             </Grid>
 
-            <Grid container spacing={5} alignItems="center">
+            {/* <Grid container spacing={5} alignItems="center">
               <Grid item xs={2}>
                 <Typography variant="body2" component="p" gutterBottom>
                   Asuransi Pengiriman
@@ -431,9 +492,9 @@ function ResponsiveDrawer() {
                   </RadioGroup>
                 </FormControl>
               </Grid>
-            </Grid>
+            </Grid> */}
 
-            <Grid container spacing={5} alignItems="center">
+            {/* <Grid container spacing={5} alignItems="center">
               <Grid item xs={2}>
                 <Typography variant="body2" component="p" gutterBottom>
                   Layanan Pengiriman
@@ -460,9 +521,9 @@ function ResponsiveDrawer() {
                   </RadioGroup>
                 </FormControl>
               </Grid>
-            </Grid>
+            </Grid> */}
 
-            <Grid container spacing={5} alignItems="center">
+            {/* <Grid container spacing={5} alignItems="center">
               <Grid item xs={2}>
                 <Typography variant="body2" component="p" gutterBottom>
                   Preorder
@@ -472,14 +533,13 @@ function ResponsiveDrawer() {
                 <FormControlLabel
                   control={
                     <IOSSwitch
-                      checked={state.checkedB}
-                      onChange={handleChangePreorder}
-                      name="checkedB"
+                      checked={}
+                      onChange={}
                     />
                   }
                 />
               </Grid>
-            </Grid>
+            </Grid> */}
           </CardContent>
         </Card>
       </Grid>
@@ -498,10 +558,14 @@ function ResponsiveDrawer() {
               <Grid item xs={10}>
                 <FormControlLabel
                   control={
-                    <IOSSwitch
-                      checked={state.checkedB}
-                      onChange={handleChange}
-                      name="checkedB"
+                    <Switch
+                      checked={input.komisiStatus}
+                      onChange={() =>
+                        setInput({
+                          ...input,
+                          komisiStatus: !input.komisiStatus,
+                        })
+                      }
                     />
                   }
                   label="Aktif"
@@ -524,6 +588,8 @@ function ResponsiveDrawer() {
                       <InputAdornment position="end">%</InputAdornment>
                     ),
                   }}
+                  name="komisi"
+                  onChange={handleInput}
                   fullWidth
                 />
               </Grid>
@@ -533,7 +599,13 @@ function ResponsiveDrawer() {
                 </Typography>
               </Grid>
               <Grid item xs={4}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="levelKomisi"
+                  onChange={handleInput}
+                />
               </Grid>
             </Grid>
 
@@ -555,6 +627,7 @@ function ResponsiveDrawer() {
           color="primary"
           disableElevation
           className={classes.button_simpan}
+          onClick={send}
         >
           Simpan
         </Button>
