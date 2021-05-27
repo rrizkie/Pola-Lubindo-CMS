@@ -105,6 +105,7 @@ export const Provider = ({ children }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     return data;
 =======
     fetchTransaksi();
@@ -115,6 +116,9 @@ export const Provider = ({ children }) => {
 =======
     fetchTransaksi();
 >>>>>>> 83db94e (integrate penjualan)
+=======
+    return data;
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
   };
 
   const tolakPesanan = async (newData) => {
@@ -127,6 +131,9 @@ export const Provider = ({ children }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
 =======
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
     data = await data.json();
@@ -143,6 +150,7 @@ export const Provider = ({ children }) => {
     data = await data.json();
     return data;
 <<<<<<< HEAD
+<<<<<<< HEAD
   };
 
   const tambahProduk = async (input) => {
@@ -169,6 +177,8 @@ export const Provider = ({ children }) => {
     });
 =======
 >>>>>>> 83db94e (integrate penjualan)
+=======
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
   };
 
   const tambahProduk = async (input) => {
@@ -212,7 +222,11 @@ export const Provider = ({ children }) => {
 >>>>>>> a24d092 (integrate daftar produk)
 =======
         tolakPesanan,
+<<<<<<< HEAD
 >>>>>>> 83db94e (integrate penjualan)
+=======
+        inputResi,
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
         ubahStatusProduk,
         deleteproduk,
       }}
