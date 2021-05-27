@@ -1,4 +1,4 @@
-import React, { createContext, useState, useReducer, useContext } from "react";
+import React, { createContext, useReducer } from "react";
 import CMSReducer from "../reducers";
 
 const initialState = {

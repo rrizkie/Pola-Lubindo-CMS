@@ -13,7 +13,7 @@ import {
 
 import useStyles from "./styles";
 
-function ResponsiveDrawer() {
+function Index() {
   const classes = useStyles();
 
   const IOSSwitch = withStyles((theme) => ({
@@ -176,4 +176,4 @@ function ResponsiveDrawer() {
   );
 }
 
-export default ResponsiveDrawer;
+export default Index;

@@ -15,7 +15,7 @@ import {
 import useStyles from "./styles";
 import { CMSContext } from "../../../context/state";
 
-function ResponsiveDrawer() {
+function Index() {
   const classes = useStyles();
   const { brand, fetchBrand, tambahProduk } = useContext(CMSContext);
   const [file, setFile] = useState("/img/cms/photo-product-placeholder.png");
@@ -643,4 +643,4 @@ function ResponsiveDrawer() {
   );
 }
 
-export default ResponsiveDrawer;
+export default Index;

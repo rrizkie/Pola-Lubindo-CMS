@@ -23,7 +23,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
 
-export default function BasicTable() {
+export default function Index() {
   const classes = useStyles();
 
   const IOSSwitch = () => {
