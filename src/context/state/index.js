@@ -84,7 +84,7 @@ export const Provider = ({ children }) => {
       body: JSON.stringify(newData),
     });
     data = await data.json();
-    fetchTransaksi();
+    return data;
   };
 
   const tolakPesanan = async (newData) => {
@@ -94,6 +94,19 @@ export const Provider = ({ children }) => {
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
     });
+    data = await data.json();
+    return data;
+  };
+
+  const inputResi = async (newData) => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/input-resi`, {
+      method: "POST",
+      headers: { access_token, "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    });
+    data = await data.json();
+    return data;
   };
 
   const tambahProduk = async (input) => {
@@ -119,6 +132,7 @@ export const Provider = ({ children }) => {
         tambahProduk,
         konfirmasiTransaksi,
         tolakPesanan,
+        inputResi,
         ubahStatusProduk,
         deleteproduk,
       }}
