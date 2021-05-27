@@ -16,6 +16,7 @@ import { CMSContext } from "../../../context/state";
 const PenjualanCard = ({ item }) => {
   const classes = useStyles();
 <<<<<<< HEAD
+<<<<<<< HEAD
   const { konfirmasiTransaksi, tolakPesanan, fetchTransaksi, inputResi } =
     useContext(CMSContext);
   const [openProduk, setOpenProduk] = useState(false);
@@ -54,21 +55,49 @@ const PenjualanCard = ({ item }) => {
     }
 =======
   const { konfirmasiTransaksi, tolakPesanan } = useContext(CMSContext);
+=======
+  const { konfirmasiTransaksi, tolakPesanan, fetchTransaksi, inputResi } =
+    useContext(CMSContext);
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
   const [openProduk, setOpenProduk] = useState(false);
+  const [resi, setResi] = useState("");
 
-  const handleKonfirmasi = () => {
+  const handleKonfirmasi = async () => {
     item.statusPesanan = "pesanan di konfirmasi";
     item.statusPembayaran = "pembayaran di terima";
     item.statusPengiriman = "siap di kirim";
-    konfirmasiTransaksi(item);
+    const response = await konfirmasiTransaksi(item);
+    if (response.message) {
+      fetchTransaksi();
+    }
   };
 
-  const handleTolakPesanan = () => {
+  const handleTolakPesanan = async () => {
     item.statusPesanan = "pesanan di tolak";
     item.statusPembayaran = "pesanan di tolak";
     item.statusPengiriman = "pesanan di tolak";
+<<<<<<< HEAD
     tolakPesanan(item);
 >>>>>>> 83db94e (integrate penjualan)
+=======
+    const response = await tolakPesanan(item);
+    if (response.message) {
+      fetchTransaksi();
+    }
+  };
+
+  const handleInputResi = async (e) => {
+    if (e.key === "Enter") {
+      console.log(resi);
+
+      const response = await inputResi({
+        noResi: resi,
+        statusPengiriman: "dalam pengiriman",
+        id: item.id,
+      });
+      if (response.message) fetchTransaksi();
+    }
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
   };
 
   return (
@@ -87,14 +116,20 @@ const PenjualanCard = ({ item }) => {
               label={
                 <>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
                   <b>
                     {item.noResi === null
                       ? item.statusPesanan
                       : item.statusPengiriman}
                   </b>
+<<<<<<< HEAD
 =======
                   <b>{item.statusPesanan}</b>
 >>>>>>> 83db94e (integrate penjualan)
+=======
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
                   <br />
                   <span style={{ color: "red" }}>{item.invoice}</span> /
                   {item.namaPenerima} {item.telfonPenerima} /{" "}
@@ -249,6 +284,9 @@ const PenjualanCard = ({ item }) => {
 
               <Grid item xs={8}>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
                 <TextField
                   value={resi}
                   onChange={(e) => setResi(e.target.value)}
@@ -256,9 +294,12 @@ const PenjualanCard = ({ item }) => {
                   variant="outlined"
                   onKeyDown={handleInputResi}
                 />
+<<<<<<< HEAD
 =======
                 <TextField size="small" variant="outlined" />
 >>>>>>> 83db94e (integrate penjualan)
+=======
+>>>>>>> 6faaeb1 (integrate input resi transaksi)
               </Grid>
             </Grid>
           ) : null}
