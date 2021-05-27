@@ -44,30 +44,31 @@ export default function Index(params) {
 
   return (
     <>
-      <div className={classes.filter}>
+      <Button
+        variant="contained"
+        disableElevation
+        color="primary"
+        className={classes.tambah_produk}
+      >
+        + Tambah Produk
+      </Button>
+
+      <br />
+
+      {views.map((option) => (
         <Button
-          variant="contained"
-          disableElevation
-          color="primary"
-          className={classes.tambah_produk}
+          key={option.value}
+          onClick={() => setView(option.value)}
+          style={{
+            borderBottom:
+              view === option.value ? "2px solid red" : "2px solid black",
+            borderRadius: 0,
+            color: view === option.value ? "red" : null,
+          }}
         >
-          + Tambah Produk
+          <b>{option.value}</b>
         </Button>
-        {views.map((option) => (
-          <Button
-            key={option.value}
-            onClick={() => setView(option.value)}
-            style={{
-              borderBottom:
-                view === option.value ? "2px solid red" : "2px solid black",
-              borderRadius: 0,
-              color: view === option.value ? "red" : null,
-            }}
-          >
-            <b>{option.value}</b>
-          </Button>
-        ))}
-      </div>
+      ))}
 
       <TableContainer
         component={Paper}

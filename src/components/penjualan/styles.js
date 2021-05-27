@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 
   form_daftar_btn: {
-    width: 136,
+    width: 170,
   },
 
   paper: {

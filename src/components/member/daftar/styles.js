@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  tambah_member: { marginBottom: 20, backgroundColor: "red" },
+  tambah_member: { marginRight: 10, backgroundColor: "red" },
   root: {
     width: 42,
     height: 26,

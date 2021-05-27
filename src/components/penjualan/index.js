@@ -12,10 +12,12 @@ import {
   Checkbox,
   FormControlLabel,
   Grid,
+  Chip,
 } from "@material-ui/core";
 
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import QueryBuilderOutlinedIcon from "@material-ui/icons/QueryBuilderOutlined";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
 
 import useStyles from "./styles";
 // import { CMSContext } from "../../context/state";
@@ -86,7 +88,7 @@ export default function Index() {
         <Button variant="outlined" className={classes.tolak_pesanan}>
           tolak pesanan
         </Button>
-        &emsp;
+        &ensp;
         <Button
           variant="contained"
           color="primary"
@@ -240,11 +242,14 @@ export default function Index() {
   ];
 
   const views = [
-    { value: "semua produk" },
-    { value: "aktif" },
-    { value: "tidak aktif" },
+    { value: "semua pesanan" },
+    { value: "pesanan baru" },
+    { value: "siap dikirim" },
+    { value: "dalam pengiriman" },
+    { value: "pesanan selesai" },
+    { value: "pesanan ditolak" },
   ];
-  const [view, setView] = React.useState("semua produk");
+  const [view, setView] = React.useState("semua pesanan");
   return (
     <>
       {views.map((option) => (
@@ -323,6 +328,318 @@ export default function Index() {
           cetak label
         </Button>
       </form>
+
+      <Paper style={{ padding: "10px 24px" }}>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item xs={9}>
+            <FormControlLabel
+              control={<Checkbox name="checkedA" />}
+              label={
+                <>
+                  Pesanan Baru /{" "}
+                  <span style={{ color: "red" }}>INV-contoh-12321321</span> /
+                  John 08172322322 / 22 Maret 2021 | 18:00
+                </>
+              }
+            />
+          </Grid>
+          <Grid item xs={3} style={{ textAlign: "right" }}>
+            <Typography variant="body2">
+              batas respons&ensp;
+              <Button
+                startIcon={<AccessTimeIcon />}
+                variant="contained"
+                disableElevation
+                style={{ backgroundColor: "#e8d800", color: "white" }}
+              >
+                23 jam
+              </Button>
+            </Typography>
+          </Grid>
+
+          <hr style={{ width: "100%" }} />
+
+          <Grid item xs={4} container>
+            <Grid item xs={2}>
+              <img
+                src="/img/cms/botol-oli.png"
+                alt="Gambar Produk"
+                width="50"
+                height="50"
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant="body2">
+                <b>Judul Produk</b>
+                <br />2 x Rp 165.000
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={6} style={{ borderLeft: "1px solid" }}>
+            <Typography variant="body2">
+              <b>Alamat</b>
+              <br />
+              David angjaya (6285795911111) The green sariwangi tahap 3 no 14
+              Parongpong, Kab. Bandung Barat, Jawa Barat 40559
+            </Typography>
+          </Grid>
+          <Grid item xs={2} style={{ borderLeft: "1px solid" }}>
+            <Typography variant="body2">
+              Kurir JNE Reguler
+              <br />
+              Rp 9.000
+            </Typography>
+          </Grid>
+
+          <Grid item xs={10}>
+            <Typography variant="body2">
+              +2 produk lain <a href="#">lihat</a>
+              <br />
+              <b>Total Bayar</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography variant="body2">
+              <br />
+              <b>Rp 235.000</b>
+            </Typography>
+          </Grid>
+
+          <hr style={{ width: "100%" }} />
+
+          <Grid item xs={8}>
+            <Typography variant="body2">sales by: Kevin</Typography>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            style={{
+              textAlign: "right",
+            }}
+          >
+            <Button
+              variant="outlined"
+              style={{ color: "green", border: "1px solid green" }}
+            >
+              <b>tolak pesanan</b>
+            </Button>
+            &ensp;
+            <Button
+              variant="contained"
+              disableElevation
+              style={{ color: "white", backgroundColor: "green" }}
+            >
+              terima pesanan
+            </Button>
+          </Grid>
+        </Grid>
+      </Paper>
+
+      <br />
+
+      <Paper style={{ padding: "10px 24px" }}>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item xs={9}>
+            <FormControlLabel
+              control={<Checkbox name="checkedA" />}
+              label={
+                <>
+                  Pesanan Baru /{" "}
+                  <span style={{ color: "red" }}>INV-contoh-12321321</span> /
+                  John 08172322322 / 22 Maret 2021 | 18:00
+                </>
+              }
+            />
+          </Grid>
+          <Grid item xs={3} style={{ textAlign: "right" }}>
+            <Typography variant="body2">
+              batas respons&ensp;
+              <Button
+                startIcon={<AccessTimeIcon />}
+                variant="contained"
+                disableElevation
+                style={{ backgroundColor: "#e8d800", color: "white" }}
+              >
+                23 jam
+              </Button>
+            </Typography>
+          </Grid>
+
+          <hr style={{ width: "100%" }} />
+
+          <Grid item xs={4} container>
+            <Grid item xs={2}>
+              <img
+                src="/img/cms/botol-oli.png"
+                alt="Gambar Produk"
+                width="50"
+                height="50"
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant="body2">
+                <b>Judul Produk</b>
+                <br />2 x Rp 165.000
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={6} style={{ borderLeft: "1px solid" }}>
+            <Typography variant="body2">
+              <b>Alamat</b>&ensp;
+              <Chip label="sudah dicetak" />
+              <br />
+              David angjaya (6285795911111) The green sariwangi tahap 3 no 14
+              Parongpong, Kab. Bandung Barat, Jawa Barat 40559
+            </Typography>
+          </Grid>
+          <Grid item xs={2} style={{ borderLeft: "1px solid" }}>
+            <Typography variant="body2">
+              Kurir JNE Reguler
+              <br />
+              Rp 9.000
+            </Typography>
+          </Grid>
+
+          <Grid item xs={10}>
+            <Typography variant="body2">
+              +2 produk lain <a href="#">lihat</a>
+              <br />
+              <b>Total Bayar</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography variant="body2">
+              <br />
+              <b>Rp 235.000</b>
+            </Typography>
+          </Grid>
+
+          <hr style={{ width: "100%", marginBottom: 20 }} />
+        </Grid>
+      </Paper>
+
+      <br />
+
+      <Paper style={{ padding: "10px 24px" }}>
+        <Grid
+          container
+          direction="row"
+          justify="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item xs={9}>
+            <FormControlLabel
+              control={<Checkbox name="checkedA" />}
+              label={
+                <>
+                  Pesanan Baru /{" "}
+                  <span style={{ color: "red" }}>INV-contoh-12321321</span> /
+                  John 08172322322 / 22 Maret 2021 | 18:00
+                </>
+              }
+            />
+          </Grid>
+          <Grid item xs={3} style={{ textAlign: "right" }}>
+            <Typography variant="body2">
+              telat&ensp;
+              <Button
+                startIcon={<AccessTimeIcon />}
+                variant="contained"
+                disableElevation
+                style={{ backgroundColor: "red", color: "white" }}
+              >
+                23 jam
+              </Button>
+            </Typography>
+          </Grid>
+
+          <hr style={{ width: "100%" }} />
+
+          <Grid item xs={4} container>
+            <Grid item xs={2}>
+              <img
+                src="/img/cms/botol-oli.png"
+                alt="Gambar Produk"
+                width="50"
+                height="50"
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <Typography variant="body2">
+                <b>Judul Produk</b>
+                <br />2 x Rp 165.000
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid item xs={6} style={{ borderLeft: "1px solid" }}>
+            <Typography variant="body2">
+              <b>Alamat</b>
+              <br />
+              David angjaya (6285795911111) The green sariwangi tahap 3 no 14
+              Parongpong, Kab. Bandung Barat, Jawa Barat 40559
+            </Typography>
+          </Grid>
+          <Grid item xs={2} style={{ borderLeft: "1px solid" }}>
+            <Typography variant="body2">
+              Kurir JNE Reguler
+              <br />
+              Rp 9.000
+            </Typography>
+          </Grid>
+
+          <Grid item xs={10}>
+            <Typography variant="body2">
+              +2 produk lain <a href="#">lihat</a>
+              <br />
+              <b>Total Bayar</b>
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography variant="body2">
+              <br />
+              <b>Rp 235.000</b>
+            </Typography>
+          </Grid>
+
+          <hr style={{ width: "100%" }} />
+
+          <Grid item xs={8}>
+            <Typography variant="body2">sales by: Eric</Typography>
+          </Grid>
+          <Grid
+            item
+            xs={4}
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+            style={{ textAlign: "right" }}
+          >
+            <Grid item xs={4}>
+              <Typography variant="body2">
+                <b>Nomor Resi</b>
+              </Typography>
+            </Grid>
+
+            <Grid item xs={8}>
+              <TextField size="small" variant="outlined" />
+            </Grid>
+          </Grid>
+        </Grid>
+      </Paper>
     </>
   );
 }
