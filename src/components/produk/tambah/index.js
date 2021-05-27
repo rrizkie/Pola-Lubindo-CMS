@@ -102,6 +102,9 @@ function ResponsiveDrawer() {
               </CardContent>
             </Grid>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 814a172 (REVISI 27 MEI 2021)
             <Grid item xs={9} className={classes.imgInput}>
               <label for="file-input">
                 <img
@@ -116,6 +119,7 @@ function ResponsiveDrawer() {
                 type="file"
                 accept=".jpg"
                 onChange={handleImage}
+<<<<<<< HEAD
 =======
             <Grid item xs={9}>
               <img
@@ -124,8 +128,9 @@ function ResponsiveDrawer() {
                 id="img"
                 style={{ width: "180px", height: "auto" }}
 >>>>>>> 1f7ac98 (global state tambah produk)
+=======
+>>>>>>> 814a172 (REVISI 27 MEI 2021)
               />
-              <input type="file" accept=".jpg" onChange={handleImage} />
             </Grid>
           </Grid>
         </Card>
