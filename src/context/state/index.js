@@ -42,15 +42,6 @@ export const Provider = ({ children }) => {
     data = await data.json();
     dispatch({ type: "FETCH_TRANSAKSI", payload: data });
   };
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1f7ac98 (global state tambah produk)
-=======
->>>>>>> 1f7ac98 (global state tambah produk)
   const fetchBrand = async () => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(`http://localhost:3000/brand`, {
@@ -60,17 +51,6 @@ export const Provider = ({ children }) => {
     data = await data.json();
     dispatch({ type: "FETCH_BRAND", payload: data });
   };
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> a24d092 (integrate daftar produk)
-=======
->>>>>>> 1f7ac98 (global state tambah produk)
-=======
->>>>>>> a24d092 (integrate daftar produk)
-=======
->>>>>>> 1f7ac98 (global state tambah produk)
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(
@@ -102,23 +82,9 @@ export const Provider = ({ children }) => {
       body: JSON.stringify(newData),
     });
     data = await data.json();
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    return data;
-=======
     fetchTransaksi();
->>>>>>> 83db94e (integrate penjualan)
-=======
+
     return data;
->>>>>>> 6faaeb1 (integrate input resi transaksi)
-=======
-    fetchTransaksi();
->>>>>>> 83db94e (integrate penjualan)
-=======
-    return data;
->>>>>>> 6faaeb1 (integrate input resi transaksi)
   };
 
   const tolakPesanan = async (newData) => {
@@ -128,14 +94,6 @@ export const Provider = ({ children }) => {
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
     });
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 6faaeb1 (integrate input resi transaksi)
-=======
->>>>>>> 6faaeb1 (integrate input resi transaksi)
     data = await data.json();
     return data;
   };
@@ -149,36 +107,6 @@ export const Provider = ({ children }) => {
     });
     data = await data.json();
     return data;
-<<<<<<< HEAD
-<<<<<<< HEAD
-  };
-
-  const tambahProduk = async (input) => {
-    const data = await fetch(`http://localhost:3000/upload`, {
-      method: "POST",
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-      body: JSON.stringify(input),
-    });
-=======
->>>>>>> 83db94e (integrate penjualan)
-=======
->>>>>>> 6faaeb1 (integrate input resi transaksi)
-  };
-
-  const tambahProduk = async (input) => {
-    const data = await fetch(`http://localhost:3000/upload`, {
-      method: "POST",
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-      body: JSON.stringify(input),
-    });
-=======
->>>>>>> 83db94e (integrate penjualan)
-=======
->>>>>>> 6faaeb1 (integrate input resi transaksi)
   };
 
   const tambahProduk = async (input) => {
@@ -203,30 +131,9 @@ export const Provider = ({ children }) => {
         autoLogin,
         tambahProduk,
         konfirmasiTransaksi,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         tolakPesanan,
         inputResi,
-=======
->>>>>>> a24d092 (integrate daftar produk)
-=======
-        tolakPesanan,
-<<<<<<< HEAD
->>>>>>> 83db94e (integrate penjualan)
-=======
-        inputResi,
->>>>>>> 6faaeb1 (integrate input resi transaksi)
-=======
->>>>>>> a24d092 (integrate daftar produk)
-=======
-        tolakPesanan,
-<<<<<<< HEAD
->>>>>>> 83db94e (integrate penjualan)
-=======
-        inputResi,
->>>>>>> 6faaeb1 (integrate input resi transaksi)
+
         ubahStatusProduk,
         deleteproduk,
       }}
