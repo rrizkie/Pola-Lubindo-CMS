@@ -13,11 +13,13 @@ import {
   MenuItem,
   TextField,
   Popover,
+  InputAdornment,
 } from "@material-ui/core";
 
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import ListIcon from "@material-ui/icons/List";
+import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
 
@@ -114,14 +116,37 @@ export default function BasicTable() {
   };
   return (
     <>
-      <Button
-        variant="contained"
-        disableElevation
-        color="secondary"
-        className={classes.tambah_member}
-      >
-        + Tambah Member
-      </Button>
+      <TextField
+        label="Cari nama, no hp, email"
+        variant="outlined"
+        size="small"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+
+      <br />
+      <br />
+
+      <div style={{ marginBottom: 20 }}>
+        <Button
+          variant="contained"
+          disableElevation
+          color="secondary"
+          className={classes.tambah_member}
+        >
+          + Tambah Member
+        </Button>
+
+        <Button variant="outlined" disableElevation>
+          unduh laporan penjualan
+        </Button>
+      </div>
+
       <TableContainer
         component={Paper}
         elevation={2}

@@ -249,7 +249,7 @@ export default function Index() {
     { value: "pesanan selesai" },
     { value: "pesanan ditolak" },
   ];
-  const [view, setView] = React.useState("semua produk");
+  const [view, setView] = React.useState("semua pesanan");
   return (
     <>
       {views.map((option) => (
