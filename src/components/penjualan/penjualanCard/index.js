@@ -15,21 +15,42 @@ import { CMSContext } from "../../../context/state";
 
 const PenjualanCard = ({ item }) => {
   const classes = useStyles();
-  const { konfirmasiTransaksi, tolakPesanan } = useContext(CMSContext);
+  const { konfirmasiTransaksi, tolakPesanan, fetchTransaksi, inputResi } =
+    useContext(CMSContext);
   const [openProduk, setOpenProduk] = useState(false);
+  const [resi, setResi] = useState("");
 
-  const handleKonfirmasi = () => {
+  const handleKonfirmasi = async () => {
     item.statusPesanan = "pesanan di konfirmasi";
     item.statusPembayaran = "pembayaran di terima";
     item.statusPengiriman = "siap di kirim";
-    konfirmasiTransaksi(item);
+    const response = await konfirmasiTransaksi(item);
+    if (response.message) {
+      fetchTransaksi();
+    }
   };
 
-  const handleTolakPesanan = () => {
+  const handleTolakPesanan = async () => {
     item.statusPesanan = "pesanan di tolak";
     item.statusPembayaran = "pesanan di tolak";
     item.statusPengiriman = "pesanan di tolak";
-    tolakPesanan(item);
+    const response = await tolakPesanan(item);
+    if (response.message) {
+      fetchTransaksi();
+    }
+  };
+
+  const handleInputResi = async (e) => {
+    if (e.key === "Enter") {
+      console.log(resi);
+
+      const response = await inputResi({
+        noResi: resi,
+        statusPengiriman: "dalam pengiriman",
+        id: item.id,
+      });
+      if (response.message) fetchTransaksi();
+    }
   };
 
   return (
@@ -47,7 +68,11 @@ const PenjualanCard = ({ item }) => {
               control={<Checkbox name="checkedA" />}
               label={
                 <>
-                  <b>{item.statusPesanan}</b>
+                  <b>
+                    {item.noResi === null
+                      ? item.statusPesanan
+                      : item.statusPengiriman}
+                  </b>
                   <br />
                   <span style={{ color: "red" }}>{item.invoice}</span> /
                   {item.namaPenerima} {item.telfonPenerima} /{" "}
@@ -201,7 +226,13 @@ const PenjualanCard = ({ item }) => {
               </Grid>
 
               <Grid item xs={8}>
-                <TextField size="small" variant="outlined" />
+                <TextField
+                  value={resi}
+                  onChange={(e) => setResi(e.target.value)}
+                  size="small"
+                  variant="outlined"
+                  onKeyDown={handleInputResi}
+                />
               </Grid>
             </Grid>
           ) : null}
