@@ -17,6 +17,7 @@ const PenjualanCard = ({ item }) => {
   const classes = useStyles();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const { konfirmasiTransaksi, tolakPesanan, fetchTransaksi, inputResi } =
     useContext(CMSContext);
   const [openProduk, setOpenProduk] = useState(false);
@@ -98,6 +99,23 @@ const PenjualanCard = ({ item }) => {
       if (response.message) fetchTransaksi();
     }
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
+=======
+  const { konfirmasiTransaksi, tolakPesanan } = useContext(CMSContext);
+  const [openProduk, setOpenProduk] = useState(false);
+
+  const handleKonfirmasi = () => {
+    item.statusPesanan = "pesanan di konfirmasi";
+    item.statusPembayaran = "pembayaran di terima";
+    item.statusPengiriman = "siap di kirim";
+    konfirmasiTransaksi(item);
+  };
+
+  const handleTolakPesanan = () => {
+    item.statusPesanan = "pesanan di tolak";
+    item.statusPembayaran = "pesanan di tolak";
+    item.statusPengiriman = "pesanan di tolak";
+    tolakPesanan(item);
+>>>>>>> 83db94e (integrate penjualan)
   };
 
   return (
@@ -117,6 +135,7 @@ const PenjualanCard = ({ item }) => {
                 <>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
                   <b>
@@ -130,6 +149,9 @@ const PenjualanCard = ({ item }) => {
 >>>>>>> 83db94e (integrate penjualan)
 =======
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
+=======
+                  <b>{item.statusPesanan}</b>
+>>>>>>> 83db94e (integrate penjualan)
                   <br />
                   <span style={{ color: "red" }}>{item.invoice}</span> /
                   {item.namaPenerima} {item.telfonPenerima} /{" "}
@@ -285,6 +307,7 @@ const PenjualanCard = ({ item }) => {
               <Grid item xs={8}>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
                 <TextField
@@ -300,6 +323,9 @@ const PenjualanCard = ({ item }) => {
 >>>>>>> 83db94e (integrate penjualan)
 =======
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
+=======
+                <TextField size="small" variant="outlined" />
+>>>>>>> 83db94e (integrate penjualan)
               </Grid>
             </Grid>
           ) : null}

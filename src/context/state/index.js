@@ -104,6 +104,7 @@ export const Provider = ({ children }) => {
     data = await data.json();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     return data;
 =======
     fetchTransaksi();
@@ -111,6 +112,9 @@ export const Provider = ({ children }) => {
 =======
     return data;
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
+=======
+    fetchTransaksi();
+>>>>>>> 83db94e (integrate penjualan)
   };
 
   const tolakPesanan = async (newData) => {
@@ -120,6 +124,7 @@ export const Provider = ({ children }) => {
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
     });
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -162,11 +167,16 @@ export const Provider = ({ children }) => {
       },
       body: JSON.stringify(input),
     });
+=======
+>>>>>>> 83db94e (integrate penjualan)
   };
 
   const tambahProduk = async (input) => {
     const data = await fetch(`http://localhost:3000/upload`, {
       method: "POST",
+      headers: {
+        "content-type": "multipart/form-data",
+      },
       body: JSON.stringify(input),
     });
   };
@@ -186,6 +196,7 @@ export const Provider = ({ children }) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         tolakPesanan,
         inputResi,
 =======
@@ -199,6 +210,9 @@ export const Provider = ({ children }) => {
 >>>>>>> 6faaeb1 (integrate input resi transaksi)
 =======
 >>>>>>> a24d092 (integrate daftar produk)
+=======
+        tolakPesanan,
+>>>>>>> 83db94e (integrate penjualan)
         ubahStatusProduk,
         deleteproduk,
       }}
