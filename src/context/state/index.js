@@ -93,7 +93,11 @@ export const Provider = ({ children }) => {
       body: JSON.stringify(newData),
     });
     data = await data.json();
+<<<<<<< HEAD
     return data;
+=======
+    fetchTransaksi();
+>>>>>>> 83db94e (integrate penjualan)
   };
 
   const tolakPesanan = async (newData) => {
@@ -103,6 +107,7 @@ export const Provider = ({ children }) => {
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
     });
+<<<<<<< HEAD
     data = await data.json();
     return data;
   };
@@ -126,11 +131,16 @@ export const Provider = ({ children }) => {
       },
       body: JSON.stringify(input),
     });
+=======
+>>>>>>> 83db94e (integrate penjualan)
   };
 
   const tambahProduk = async (input) => {
     const data = await fetch(`http://localhost:3000/upload`, {
       method: "POST",
+      headers: {
+        "content-type": "multipart/form-data",
+      },
       body: JSON.stringify(input),
     });
   };
@@ -148,10 +158,14 @@ export const Provider = ({ children }) => {
         tambahProduk,
         konfirmasiTransaksi,
 <<<<<<< HEAD
+<<<<<<< HEAD
         tolakPesanan,
         inputResi,
 =======
 >>>>>>> a24d092 (integrate daftar produk)
+=======
+        tolakPesanan,
+>>>>>>> 83db94e (integrate penjualan)
         ubahStatusProduk,
         deleteproduk,
       }}
