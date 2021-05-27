@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import {
   Chip,
@@ -9,15 +9,18 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TableBody,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
+import { CMSContext } from "../../../context/state";
 
 export default function Index(params) {
   const classes = useStyles();
-
+  const { transaksi, fetchTransaksi } = useContext(CMSContext);
   const [filter, setFilter] = React.useState("penjualan");
+
   const allFilter = [
     { value: "semua transaksi" },
     { value: "perlu verifikasi" },
@@ -26,6 +29,10 @@ export default function Index(params) {
     { value: "pembayaran ditolak" },
     { value: "transaksi dibatalkan" },
   ];
+
+  useEffect(() => {
+    fetchTransaksi();
+  }, []);
 
   return (
     <>
@@ -58,15 +65,28 @@ export default function Index(params) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.table_head}>
             <TableRow>
-              <TableCell>Tgl. Pengajuan</TableCell>
-              <TableCell>ID Komisi</TableCell>
+              <TableCell>Tgl Transaksi</TableCell>
+              <TableCell>ID Transaksi</TableCell>
               <TableCell>Member</TableCell>
-              <TableCell>Komisi Invoice</TableCell>
+              <TableCell>Sales Invoice</TableCell>
               <TableCell>Metode Pembayaran</TableCell>
               <TableCell>Total Transaksi</TableCell>
               <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
+          <TableBody>
+            {transaksi.map((item) => (
+              <TableRow>
+                <TableCell>{item.createdAt.split("T")[0]}</TableCell>
+                <TableCell>{item.id}</TableCell>
+                <TableCell>{item.Carts[0].User.nama}</TableCell>
+                <TableCell>{item.invoice}</TableCell>
+                <TableCell>{item.metodePembayaran}</TableCell>
+                <TableCell>{item.totalHarga}</TableCell>
+                <TableCell>{item.statusPesanan}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </>
