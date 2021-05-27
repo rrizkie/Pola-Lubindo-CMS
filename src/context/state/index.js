@@ -84,11 +84,37 @@ export const Provider = ({ children }) => {
       body: JSON.stringify(newData),
     });
     data = await data.json();
+    return data;
+  };
+
+  const tolakPesanan = async (newData) => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/tolak-pesanan`, {
+      method: "POST",
+      headers: { access_token, "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    });
+    data = await data.json();
+    return data;
+  };
+
+  const inputResi = async (newData) => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/input-resi`, {
+      method: "POST",
+      headers: { access_token, "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    });
+    data = await data.json();
+    return data;
   };
 
   const tambahProduk = async (input) => {
     const data = await fetch(`http://localhost:3000/upload`, {
       method: "POST",
+      headers: {
+        "content-type": "multipart/form-data",
+      },
       body: JSON.stringify(input),
     });
   };
@@ -105,6 +131,8 @@ export const Provider = ({ children }) => {
         autoLogin,
         tambahProduk,
         konfirmasiTransaksi,
+        tolakPesanan,
+        inputResi,
         ubahStatusProduk,
         deleteproduk,
       }}
