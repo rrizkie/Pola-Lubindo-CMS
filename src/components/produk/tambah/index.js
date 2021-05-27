@@ -101,14 +101,21 @@ function ResponsiveDrawer() {
                 </Typography>
               </CardContent>
             </Grid>
-            <Grid item xs={9}>
-              <img
-                src={file}
-                alt="Placeholder"
-                id="img"
-                style={{ width: "180px", height: "auto" }}
+            <Grid item xs={9} className={classes.imgInput}>
+              <label for="file-input">
+                <img
+                  src={file}
+                  alt="Placeholder"
+                  id="img"
+                  style={{ width: "180px", height: "auto" }}
+                />
+              </label>
+              <input
+                id="file-input"
+                type="file"
+                accept=".jpg"
+                onChange={handleImage}
               />
-              <input type="file" accept=".jpg" onChange={handleImage} />
             </Grid>
           </Grid>
         </Card>
