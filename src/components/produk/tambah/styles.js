@@ -1,6 +1,13 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  imgInput: {
+    "& > input": {
+      visibility: "hidden",
+      width: 0,
+      height: 0,
+    },
+  },
   // button
   button: {
     "& > *": {
