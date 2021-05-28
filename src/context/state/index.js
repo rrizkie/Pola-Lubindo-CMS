@@ -1,5 +1,6 @@
 import React, { createContext, useState, useReducer, useContext } from "react";
 import CMSReducer from "../reducers";
+import Axios from "axios";
 
 const initialState = {
   produk: [],
@@ -110,12 +111,11 @@ export const Provider = ({ children }) => {
   };
 
   const tambahProduk = async (input) => {
-    const data = await fetch(`http://localhost:3000/upload`, {
+    const access_token = localStorage.getItem("access_token");
+    const data = await Axios("http://localhost:3000/produk", {
       method: "POST",
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-      body: JSON.stringify(input),
+      headers: { access_token },
+      data: input,
     });
   };
 
