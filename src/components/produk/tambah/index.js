@@ -14,9 +14,11 @@ import {
 
 import useStyles from "./styles";
 import { CMSContext } from "../../../context/state";
+import { useHistory } from "react-router";
 
 function ResponsiveDrawer() {
   const classes = useStyles();
+  const history = useHistory();
   const { brand, fetchBrand, tambahProduk } = useContext(CMSContext);
   const [file, setFile] = useState("/img/cms/photo-product-placeholder.png");
   const [image, setImage] = useState();
@@ -60,6 +62,7 @@ function ResponsiveDrawer() {
     data.append("file", image);
 
     tambahProduk(data);
+    history.push("/produk");
   };
 
   const handleInput = (e) => {
@@ -275,7 +278,7 @@ function ResponsiveDrawer() {
                   variant="outlined"
                   size="small"
                   fullWidth
-                  value="1"
+                  value={input.minPesanan}
                   name="minPesanan"
                   onChange={handleInput}
                 />

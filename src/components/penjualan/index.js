@@ -18,7 +18,9 @@ export default function Index() {
   const classes = useStyles();
   const { transaksi, fetchTransaksi } = useContext(CMSContext);
   const pesananBaru = transaksi.filter(
-    (el) => el.statusPesanan === "menunggu konfirmasi"
+    (el) =>
+      el.statusPesanan === "menunggu konfirmasi" ||
+      ("menunggu pembayaran" && el.statusPengiriman !== "siap di kirim")
   );
   const siapDikirim = transaksi.filter(
     (el) => el.statusPengiriman === "siap di kirim"

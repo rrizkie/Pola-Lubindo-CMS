@@ -117,6 +117,7 @@ export const Provider = ({ children }) => {
       headers: { access_token },
       data: input,
     });
+    fetchProduk();
   };
 
   return (
