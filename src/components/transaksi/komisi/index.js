@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 
 import {
   Chip,
@@ -9,13 +9,20 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TableBody,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
+import { CMSContext } from "../../../context/state";
 
 export default function Index(params) {
   const classes = useStyles();
+  const { fetchTransaksiKomisi, transaksiKomisi } = useContext(CMSContext);
+
+  useEffect(() => {
+    fetchTransaksiKomisi();
+  }, []);
 
   const [filter, setFilter] = React.useState("penjualan");
   const allFilter = [
@@ -56,15 +63,22 @@ export default function Index(params) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.table_head}>
             <TableRow>
-              <TableCell>Tgl. Pengajuan</TableCell>
               <TableCell>ID Komisi</TableCell>
               <TableCell>Member</TableCell>
-              <TableCell>Komisi Invoice</TableCell>
-              <TableCell>Metode Pembayaran</TableCell>
-              <TableCell>Total Transaksi</TableCell>
+              <TableCell>Total Komisi</TableCell>
               <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
+          <TableBody>
+            {transaksiKomisi.map((item) => (
+              <TableRow>
+                <TableCell>{item.id}</TableCell>
+                <TableCell>{item.transaksi[0].User.nama}</TableCell>
+                <TableCell>Rp. {item.totalKomisi}</TableCell>
+                <TableCell>status</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </TableContainer>
     </>

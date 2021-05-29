@@ -82,7 +82,7 @@ export default function Index(params) {
                 <TableCell>{item.Carts[0].User.nama}</TableCell>
                 <TableCell>{item.invoice}</TableCell>
                 <TableCell>{item.metodePembayaran}</TableCell>
-                <TableCell>{item.totalHarga}</TableCell>
+                <TableCell>Rp. {item.totalHarga}</TableCell>
                 <TableCell>{item.statusPesanan}</TableCell>
               </TableRow>
             ))}

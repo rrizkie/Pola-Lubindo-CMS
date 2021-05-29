@@ -6,6 +6,7 @@ const initialState = {
   produk: [],
   brand: [],
   transaksi: [],
+  transaksiKomisi: [],
 };
 
 export const CMSContext = createContext(initialState);
@@ -52,6 +53,16 @@ export const Provider = ({ children }) => {
     });
     data = await data.json();
     dispatch({ type: "FETCH_BRAND", payload: data });
+  };
+
+  const fetchTransaksiKomisi = async () => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/all-transaksi`, {
+      method: "GET",
+      headers: { access_token, "Content-Type": "application/json" },
+    });
+    data = await data.json();
+    dispatch({ type: "FETCH_TRANSAKSI_KOMISI", payload: data });
   };
 
   const ubahStatusProduk = async (newData) => {
@@ -126,9 +137,11 @@ export const Provider = ({ children }) => {
         produk: state.produk,
         brand: state.brand,
         transaksi: state.transaksi,
+        transaksiKomisi: state.transaksiKomisi,
         fetchProduk,
         fetchTransaksi,
         fetchBrand,
+        fetchTransaksiKomisi,
         autoLogin,
         tambahProduk,
         konfirmasiTransaksi,
