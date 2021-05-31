@@ -33,6 +33,12 @@ export const Provider = ({ children }) => {
     dispatch({ type: "FETCH_PRODUK", payload: data });
   };
 
+  const fetchMember = async () => {
+    let data = await fetch("http://localhost:3000/customer");
+    data = await data.json();
+    dispatch({ type: "FETCH_MEMBER", payload: data });
+  };
+
   const fetchTransaksi = async () => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(`http://localhost:3000/transaksi`, {
@@ -124,6 +130,7 @@ export const Provider = ({ children }) => {
       value={{
         produk: state.produk,
         brand: state.brand,
+        member: state.member,
         transaksi: state.transaksi,
         fetchProduk,
         fetchTransaksi,
@@ -133,7 +140,7 @@ export const Provider = ({ children }) => {
         konfirmasiTransaksi,
         tolakPesanan,
         inputResi,
-
+        fetchMember,
         ubahStatusProduk,
         deleteproduk,
       }}

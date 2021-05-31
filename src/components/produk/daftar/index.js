@@ -3,11 +3,6 @@ import { CMSContext } from "../../../context/state";
 import {
   Button,
   Checkbox,
-  Grid,
-  InputAdornment,
-  MenuItem,
-  Switch,
-  TextField,
   Table,
   TableBody,
   TableCell,
