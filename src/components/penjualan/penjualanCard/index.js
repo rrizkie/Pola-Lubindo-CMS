@@ -47,6 +47,7 @@ const PenjualanCard = ({ item }) => {
       const response = await inputResi({
         noResi: resi,
         statusPengiriman: "dalam pengiriman",
+        expiredAt: null,
         id: item.id,
       });
       if (response.message) fetchTransaksi();
@@ -82,7 +83,7 @@ const PenjualanCard = ({ item }) => {
               }
             />
           </Grid>
-          <Grid item xs={3} style={{ textAlign: "right" }}>
+          {/* <Grid item xs={3} style={{ textAlign: "right" }}>
             <Typography variant="body2">
               batas respons&ensp;
               <Button
@@ -94,7 +95,7 @@ const PenjualanCard = ({ item }) => {
                 23 jam
               </Button>
             </Typography>
-          </Grid>
+          </Grid> */}
 
           <hr style={{ width: "100%" }} />
 

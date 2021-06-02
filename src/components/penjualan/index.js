@@ -20,7 +20,11 @@ export default function Index() {
   const pesananBaru = transaksi.filter(
     (el) =>
       el.statusPesanan === "menunggu konfirmasi" ||
-      ("menunggu pembayaran" && el.statusPengiriman !== "siap di kirim")
+      ("menunggu pembayaran" &&
+        el.statusPengiriman !== "siap di kirim" &&
+        el.statusPengiriman !== "dalam pengiriman" &&
+        el.statusPengiriman !== "pesanan selesai" &&
+        el.statusPesanan === "pesanan di tolak")
   );
   const siapDikirim = transaksi.filter(
     (el) => el.statusPengiriman === "siap di kirim"
@@ -129,7 +133,7 @@ export default function Index() {
         </Button>
       </form>
 
-      <form className={classes.form_daftar} noValidate autoComplete="off">
+      {/* <form className={classes.form_daftar} noValidate autoComplete="off">
         <FormControlLabel
           control={
             <RedCheckbox
@@ -147,7 +151,7 @@ export default function Index() {
         <Button variant="outlined" className={classes.form_daftar_btn}>
           cetak label
         </Button>
-      </form>
+      </form> */}
 
       {view === "pesanan baru"
         ? pesananBaru.map((item) => <PenjualanCard item={item} />)
