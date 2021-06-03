@@ -14,30 +14,33 @@ import {
 
 import useStyles from "./styles";
 import { CMSContext } from "../../../context/state";
+import { useHistory } from "react-router";
 
 function Index() {
   const classes = useStyles();
+  const history = useHistory();
   const { brand, fetchBrand, tambahProduk } = useContext(CMSContext);
   const [file, setFile] = useState("/img/cms/photo-product-placeholder.png");
+  const [image, setImage] = useState();
   const [weight, setWeight] = useState("gram");
   const [input, setInput] = useState({
-    fotoProduk: "",
-    namaProduk: "",
-    brandId: "",
-    deskripsi: "",
-    minPesanan: "",
-    hargaSatuan: "",
-    hargaGrosir: "",
+    fotoProduk: null,
+    namaProduk: null,
+    brandId: null,
+    deskripsi: null,
+    minPesanan: 1,
+    hargaSatuan: null,
+    hargaGrosir: null,
     statusProduk: false,
-    stock: "",
-    sku: "",
-    weight: "",
-    panjang: "",
-    lebar: "",
-    tinggi: "",
-    komisiStatus: "",
-    komisi: "",
-    levelKomisi: "",
+    stock: null,
+    sku: null,
+    weight: 0,
+    panjang: 0,
+    lebar: null,
+    tinggi: null,
+    komisiStatus: false,
+    komisi: null,
+    levelKomisi: null,
   });
 
   useEffect(() => {
@@ -55,11 +58,11 @@ function Index() {
 
   const send = (e) => {
     const data = new FormData();
-    data.append("data", input);
-    data.append("file", file);
+    data.append("data", JSON.stringify(input, null, 2));
+    data.append("file", image);
 
-    console.log(data);
     tambahProduk(data);
+    history.push("/produk");
   };
 
   const handleInput = (e) => {
@@ -72,6 +75,7 @@ function Index() {
 
   const handleImage = (e) => {
     if (e.target.files && e.target.files[0]) {
+      setImage(e.target.files[0]);
       let reader = new FileReader();
       reader.onload = (e) => {
         setFile(e.target.result);
@@ -274,7 +278,7 @@ function Index() {
                   variant="outlined"
                   size="small"
                   fullWidth
-                  value="1"
+                  value={input.minPesanan}
                   name="minPesanan"
                   onChange={handleInput}
                 />

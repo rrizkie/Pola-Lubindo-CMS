@@ -20,6 +20,12 @@ const CMSReducer = (state, action) => {
         ...state,
         brand: action.payload,
       };
+    case "FETCH_TRANSAKSI_KOMISI":
+      return {
+        ...state,
+        transaksiKomisi: action.payload,
+      };
+
     default:
       return state;
   }

@@ -17,6 +17,7 @@ const ProdukCard = ({ row }) => {
   const [produkStatus, setProdukStatus] = useState(
     row.statusProduk === true ? true : false
   );
+  console.log(row);
   const actions = [
     {
       value: "edit",
@@ -50,7 +51,12 @@ const ProdukCard = ({ row }) => {
       <TableCell>
         <Grid container spacing={3}>
           <Grid item xs={3}>
-            <img src={row.fotoProduk} alt="Botol Oli" width="50" height="50" />
+            <img
+              src={row.fotoProduk}
+              alt={row.namaProduk}
+              width="50"
+              height="50"
+            />
           </Grid>
           <Grid item xs={9}>
             {row.namaProduk}

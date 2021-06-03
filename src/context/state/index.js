@@ -1,10 +1,12 @@
 import React, { createContext, useReducer } from "react";
 import CMSReducer from "../reducers";
+import Axios from "axios";
 
 const initialState = {
   produk: [],
   brand: [],
   transaksi: [],
+  transaksiKomisi: [],
 };
 
 export const CMSContext = createContext(initialState);
@@ -57,6 +59,17 @@ export const Provider = ({ children }) => {
     data = await data.json();
     dispatch({ type: "FETCH_BRAND", payload: data });
   };
+
+  const fetchTransaksiKomisi = async () => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/all-transaksi`, {
+      method: "GET",
+      headers: { access_token, "Content-Type": "application/json" },
+    });
+    data = await data.json();
+    dispatch({ type: "FETCH_TRANSAKSI_KOMISI", payload: data });
+  };
+
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(
@@ -116,13 +129,13 @@ export const Provider = ({ children }) => {
   };
 
   const tambahProduk = async (input) => {
-    const data = await fetch(`http://localhost:3000/upload`, {
+    const access_token = localStorage.getItem("access_token");
+    const data = await Axios("http://localhost:3000/produk", {
       method: "POST",
-      headers: {
-        "content-type": "multipart/form-data",
-      },
-      body: JSON.stringify(input),
+      headers: { access_token },
+      data: input,
     });
+    fetchProduk();
   };
 
   return (
@@ -132,9 +145,11 @@ export const Provider = ({ children }) => {
         brand: state.brand,
         member: state.member,
         transaksi: state.transaksi,
+        transaksiKomisi: state.transaksiKomisi,
         fetchProduk,
         fetchTransaksi,
         fetchBrand,
+        fetchTransaksiKomisi,
         autoLogin,
         tambahProduk,
         konfirmasiTransaksi,
