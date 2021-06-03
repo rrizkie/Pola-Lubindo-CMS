@@ -107,24 +107,28 @@ export default function Index(params) {
                 <TableCell>{item.bankTujuan}</TableCell>
                 <TableCell>Rp. {item.totalHarga}</TableCell>
                 <TableCell>{item.statusPembayaran}</TableCell>
-                <TableCell>
-                  <TextField
-                    id="outlined-select-currency"
-                    select
-                    variant="outlined"
-                    size="small"
-                  >
-                    <MenuItem
-                      value="verified"
-                      onClick={() => handleVerified(item)}
+                {item.statusPembayaran === "menunggu konfirmasi" ? (
+                  <TableCell>
+                    <TextField
+                      id="outlined-select-currency"
+                      select
+                      variant="outlined"
+                      size="small"
                     >
-                      Verified
-                    </MenuItem>
-                    <MenuItem value="tolak" onClick={() => handleTolak(item)}>
-                      Tolak
-                    </MenuItem>
-                  </TextField>
-                </TableCell>
+                      <MenuItem
+                        value="verified"
+                        onClick={() => handleVerified(item)}
+                      >
+                        Verified
+                      </MenuItem>
+                      <MenuItem value="tolak" onClick={() => handleTolak(item)}>
+                        Tolak
+                      </MenuItem>
+                    </TextField>
+                  </TableCell>
+                ) : (
+                  ""
+                )}
               </TableRow>
             ))}
           </TableBody>
