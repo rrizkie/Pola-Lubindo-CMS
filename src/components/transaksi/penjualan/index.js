@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import {
   Chip,
@@ -10,6 +10,7 @@ import {
   TableRow,
   Paper,
   TableBody,
+  MenuItem,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
@@ -18,7 +19,8 @@ import { CMSContext } from "../../../context/state";
 
 export default function Index(params) {
   const classes = useStyles();
-  const { transaksi, fetchTransaksi } = useContext(CMSContext);
+  const { transaksi, fetchTransaksi, ubahStatusPembayaran, tolakPesanan } =
+    useContext(CMSContext);
   const [filter, setFilter] = React.useState("penjualan");
 
   const allFilter = [
@@ -29,6 +31,22 @@ export default function Index(params) {
     { value: "pembayaran ditolak" },
     { value: "transaksi dibatalkan" },
   ];
+
+  const handleVerified = (data) => {
+    console.log(data);
+    ubahStatusPembayaran({ statusPembayaran: "verified", id: data.id });
+  };
+
+  const handleTolak = async (data) => {
+    console.log(data);
+    data.statusPesanan = "pesanan di tolak";
+    data.statusPembayaran = "pesanan di tolak";
+    data.statusPengiriman = "pesanan di tolak";
+    const response = await tolakPesanan(data);
+    if (response.message) {
+      fetchTransaksi();
+    }
+  };
 
   useEffect(() => {
     fetchTransaksi();
@@ -70,8 +88,11 @@ export default function Index(params) {
               <TableCell>Member</TableCell>
               <TableCell>Sales Invoice</TableCell>
               <TableCell>Metode Pembayaran</TableCell>
+              <TableCell>Bank Asal</TableCell>
+              <TableCell>Bank Tujuan</TableCell>
               <TableCell>Total Transaksi</TableCell>
               <TableCell>Status</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -82,8 +103,28 @@ export default function Index(params) {
                 <TableCell>{item.Carts[0].User.nama}</TableCell>
                 <TableCell>{item.invoice}</TableCell>
                 <TableCell>{item.metodePembayaran}</TableCell>
+                <TableCell>{item.bankAsal}</TableCell>
+                <TableCell>{item.bankTujuan}</TableCell>
                 <TableCell>Rp. {item.totalHarga}</TableCell>
-                <TableCell>{item.statusPesanan}</TableCell>
+                <TableCell>{item.statusPembayaran}</TableCell>
+                <TableCell>
+                  <TextField
+                    id="outlined-select-currency"
+                    select
+                    variant="outlined"
+                    size="small"
+                  >
+                    <MenuItem
+                      value="verified"
+                      onClick={() => handleVerified(item)}
+                    >
+                      Verified
+                    </MenuItem>
+                    <MenuItem value="tolak" onClick={() => handleTolak(item)}>
+                      Tolak
+                    </MenuItem>
+                  </TextField>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

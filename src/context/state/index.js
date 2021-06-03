@@ -110,6 +110,16 @@ export const Provider = ({ children }) => {
     return data;
   };
 
+  const ubahStatusPembayaran = async (newData) => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch(`http://localhost:3000/ubah-status-pembayaran`, {
+      method: "POST",
+      headers: { access_token, "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    });
+    fetchTransaksi();
+  };
+
   const inputResi = async (newData) => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(`http://localhost:3000/input-resi`, {
@@ -146,6 +156,7 @@ export const Provider = ({ children }) => {
         tambahProduk,
         konfirmasiTransaksi,
         tolakPesanan,
+        ubahStatusPembayaran,
         inputResi,
         ubahStatusProduk,
         deleteproduk,
