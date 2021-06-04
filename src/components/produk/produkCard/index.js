@@ -84,12 +84,7 @@ const ProdukCard = ({ row }) => {
         <Switch checked={produkStatus} onChange={handleStatus} />
       </TableCell>
       <TableCell>
-        <TextField
-          id="outlined-select-currency"
-          select
-          variant="outlined"
-          size="small"
-        >
+        <TextField select variant="outlined" size="small">
           {actions.map((option) => (
             <MenuItem
               key={option.value}

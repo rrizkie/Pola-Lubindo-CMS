@@ -7,6 +7,7 @@ const initialState = {
   brand: [],
   transaksi: [],
   transaksiKomisi: [],
+  member: [],
 };
 
 export const CMSContext = createContext(initialState);
@@ -36,7 +37,12 @@ export const Provider = ({ children }) => {
   };
 
   const fetchMember = async () => {
-    let data = await fetch("http://localhost:3000/customer");
+    const access_token = localStorage.getItem("access_token");
+    let data = await fetch("http://localhost:3000/customer", {
+      method: "GET",
+      headers: { access_token, "Content-Type": "application/json" },
+    });
+    console.log(data);
     data = await data.json();
     dispatch({ type: "FETCH_MEMBER", payload: data });
   };

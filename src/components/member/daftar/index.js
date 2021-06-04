@@ -11,6 +11,7 @@ import {
   Paper,
   TextField,
   InputAdornment,
+  Typography,
 } from "@material-ui/core";
 
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
@@ -47,19 +48,21 @@ export default function Index() {
       <br />
       <br />
 
-      <div style={{ marginBottom: 20 }}>
+      <div className={classes.option}>
         <Button
           variant="contained"
           disableElevation
           color="secondary"
-          className={classes.tambah_member}
+          className={classes.button}
         >
           + Tambah Member
         </Button>
-
         <Button variant="outlined" disableElevation>
           unduh laporan penjualan
         </Button>
+        <Typography style={{ textAlign: "right" }}>
+          jumlah member: 244
+        </Typography>
       </div>
 
       <TableContainer

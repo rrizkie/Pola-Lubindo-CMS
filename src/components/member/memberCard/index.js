@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { CMSContext } from "../../../context/state";
 import {
   Button,
@@ -19,72 +19,63 @@ import useStyles from "./styles";
 export default function Index({ row }) {
   const classes = useStyles();
 
-  const {} = useContext(CMSContext);
+  const { ubahPremiere, ubahStatus, deleteMember } = useContext(CMSContext);
 
-  useEffect(() => {}, []);
-
-  const IOSSwitch = () => {
-    return (
-      <Switch
-        focusVisibleClassName={classes.focusVisible}
-        disableRipple
-        classes={{
-          root: classes.root,
-          switchBase: classes.switchBase,
-          thumb: classes.thumb,
-          track: classes.track,
-          checked: classes.checked,
-        }}
-      />
-    );
-  };
-
+  // PREMIERE
   const [premiere, setPremiere] = useState(
     row.premiere === true ? true : false
   );
-
   const handlePremiere = () => {
     setPremiere(!premiere);
+    ubahPremiere({ premiere: !premiere, id: row.id });
   };
 
+  // STATUS
   const [status, setStatus] = useState(row.status === true ? true : false);
-
   const handleStatus = () => {
     setStatus(!status);
+    ubahStatus({ status: !status, id: row.id });
   };
 
+  // LEVEL
   const levels = [
     {
       value: "Level 1",
     },
   ];
-
   const [level, setLevel] = React.useState("Level 1");
-
   const handleLevel = (event) => {
     setLevel(event.target.value);
   };
 
+  // AKSI
+  const actions = [
+    { value: "edit" },
+    { value: "hapus" },
+    { value: "reset password" },
+  ];
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const openAction = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
-  const closeAction = () => {
+  const closeAction = (input) => {
     setAnchorEl(null);
+    console.log(input);
+    if (input === "hapus") {
+      deleteMember(row.id);
+    }
   };
   return (
     <TableRow key={row.nama}>
       <TableCell>{row.nama}</TableCell>
-      <TableCell>{row.tgl_gabung}</TableCell>
+      <TableCell>{row.createdAt}</TableCell>
       <TableCell>
         <Grid container alignItems="center">
           <Grid item xs={3}>
             <img src="/img/cms/WhatsApp.svg" alt="WhatsApp" width="30" />
           </Grid>
           <Grid item xs={9}>
-            {row.whatsapp}
+            {row.phone}
           </Grid>
           <Grid item xs={3}>
             <MailOutlineIcon />
@@ -122,7 +113,7 @@ export default function Index({ row }) {
       <TableCell>
         <Grid container alignItems="center">
           <Grid item xs={12}>
-            {row.diskon}
+            {row.discount} produk
           </Grid>
           <Grid item xs={12}>
             <Button variant="outlined">ubah</Button>
@@ -130,15 +121,38 @@ export default function Index({ row }) {
         </Grid>
       </TableCell>
       <TableCell>
-        <IOSSwitch checked={row.premiere} onChange={handlePremiere} />
+        <Switch
+          focusVisibleClassName={classes.focusVisible}
+          disableRipple
+          classes={{
+            root: classes.root,
+            switchBase: classes.switchBase,
+            thumb: classes.thumb,
+            track: classes.track,
+            checked: classes.checked,
+          }}
+          checked={row.premiere}
+          onChange={handlePremiere}
+        />
       </TableCell>
       <TableCell>
-        <IOSSwitch checked={row.status} onChange={handleStatus} />
+        <Switch
+          focusVisibleClassName={classes.focusVisible}
+          disableRipple
+          classes={{
+            root: classes.root,
+            switchBase: classes.switchBase,
+            thumb: classes.thumb,
+            track: classes.track,
+            checked: classes.checked,
+          }}
+          checked={row.status}
+          onChange={handleStatus}
+        />
       </TableCell>
       <TableCell>
         <ListIcon onClick={openAction} />
         <Popover
-          id="simple-menu"
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
           onClose={closeAction}
@@ -151,9 +165,15 @@ export default function Index({ row }) {
             horizontal: "left",
           }}
         >
-          <MenuItem onClick={closeAction}>Edit</MenuItem>
-          <MenuItem onClick={closeAction}>Hapus</MenuItem>
-          <MenuItem onClick={closeAction}>Reset Password</MenuItem>
+          {actions.map((option) => (
+            <MenuItem
+              key={option.value}
+              value={option.value}
+              onClick={() => closeAction(option.value)}
+            >
+              {option.value}
+            </MenuItem>
+          ))}
         </Popover>
       </TableCell>
     </TableRow>
