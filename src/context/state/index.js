@@ -42,7 +42,7 @@ export const Provider = ({ children }) => {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
-    console.log(data);
+    console.log(data, "<<<");
     data = await data.json();
     dispatch({ type: "FETCH_MEMBER", payload: data });
   };
@@ -56,6 +56,7 @@ export const Provider = ({ children }) => {
     data = await data.json();
     dispatch({ type: "FETCH_TRANSAKSI", payload: data });
   };
+
   const fetchBrand = async () => {
     const access_token = localStorage.getItem("access_token");
     let data = await fetch(`http://localhost:3000/brand`, {
@@ -154,6 +155,18 @@ export const Provider = ({ children }) => {
     fetchProduk();
   };
 
+  const tambahMember = async (input) => {
+    const access_token = localStorage.getItem("access_token");
+    let data = await Axios("http://localhost:3000/customer", {
+      method: "POST",
+      headers: { access_token },
+      data: input,
+    });
+    console.log(data, "<<<");
+    data = await data.json();
+    fetchMember();
+  };
+
   return (
     <CMSContext.Provider
       value={{
@@ -166,15 +179,19 @@ export const Provider = ({ children }) => {
         fetchTransaksi,
         fetchBrand,
         fetchTransaksiKomisi,
+        fetchMember,
+
         autoLogin,
-        tambahProduk,
         konfirmasiTransaksi,
         tolakPesanan,
         ubahStatusPembayaran,
         inputResi,
-        fetchMember,
+
+        tambahProduk,
         ubahStatusProduk,
         deleteproduk,
+
+        tambahMember,
       }}
       {...{ children }}
     />
