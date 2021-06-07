@@ -21,7 +21,6 @@ const PenjualanCard = ({ item }) => {
 
   const handleKonfirmasi = async () => {
     item.statusPesanan = "pesanan di konfirmasi";
-    item.statusPembayaran = "pembayaran di terima";
     item.statusPengiriman = "siap di kirim";
     const response = await konfirmasiTransaksi(item);
     if (response.message) {

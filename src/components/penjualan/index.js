@@ -16,7 +16,8 @@ import PenjualanCard from "./penjualanCard";
 
 export default function Index() {
   const classes = useStyles();
-  const { transaksi, fetchTransaksi } = useContext(CMSContext);
+  let { transaksi, fetchTransaksi } = useContext(CMSContext);
+  transaksi = transaksi.filter((el) => el.statusPembayaran === "verified");
   const pesananBaru = transaksi.filter(
     (el) =>
       el.statusPesanan === "menunggu konfirmasi" ||
