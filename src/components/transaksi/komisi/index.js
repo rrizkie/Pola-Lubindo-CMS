@@ -14,11 +14,15 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
+
 import { CMSContext } from "../../../context/state";
+
+import DetailCard from "./KomisiDetailCard";
 
 export default function Index(params) {
   const classes = useStyles();
   const { fetchTransaksiKomisi, transaksiKomisi } = useContext(CMSContext);
+  console.log(transaksiKomisi);
 
   useEffect(() => {
     fetchTransaksiKomisi();
@@ -63,20 +67,16 @@ export default function Index(params) {
         <Table className={classes.table} aria-label="simple table">
           <TableHead className={classes.table_head}>
             <TableRow>
+              <TableCell />
               <TableCell>ID Komisi</TableCell>
               <TableCell>Member</TableCell>
               <TableCell>Total Komisi</TableCell>
               <TableCell>Status</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody style={{ margin: "0.3rem" }}>
             {transaksiKomisi.map((item) => (
-              <TableRow>
-                <TableCell>{item.id}</TableCell>
-                <TableCell>{item.transaksi[0].User.nama}</TableCell>
-                <TableCell>Rp. {item.totalKomisi}</TableCell>
-                <TableCell>status</TableCell>
-              </TableRow>
+              <DetailCard item={item} />
             ))}
           </TableBody>
         </Table>
