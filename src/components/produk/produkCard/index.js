@@ -14,9 +14,18 @@ import { CMSContext } from "../../../context/state";
 const ProdukCard = ({ row }) => {
   const { ubahStatusProduk, deleteproduk } = useContext(CMSContext);
   const [checked, setChecked] = useState(false);
+
   const [produkStatus, setProdukStatus] = useState(
     row.statusProduk === true ? true : false
   );
+  const handleStatus = () => {
+    setProdukStatus(!produkStatus);
+    ubahStatusProduk(produkStatus === true ? "Aktif" : null, {
+      statusProduk: !produkStatus,
+      id: row.id,
+    });
+  };
+
   console.log(row);
   const actions = [
     {
@@ -32,11 +41,6 @@ const ProdukCard = ({ row }) => {
     if (input === "hapus") {
       deleteproduk(row.id);
     }
-  };
-
-  const handleStatus = () => {
-    setProdukStatus(!produkStatus);
-    ubahStatusProduk({ statusProduk: !produkStatus, id: row.id });
   };
 
   return (

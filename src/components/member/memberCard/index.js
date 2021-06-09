@@ -1,5 +1,8 @@
 import React, { useContext, useState } from "react";
+
 import { CMSContext } from "../../../context/state";
+
+// MATERIAL UI
 import {
   Button,
   Grid,
@@ -19,22 +22,27 @@ import useStyles from "./styles";
 export default function Index({ row }) {
   const classes = useStyles();
 
-  const { ubahPremiere, ubahStatus, deleteMember } = useContext(CMSContext);
+  const { ubahStatusPremiere, ubahStatus, deleteMember } =
+    useContext(CMSContext);
 
   // PREMIERE
-  const [premiere, setPremiere] = useState(
-    row.premiere === true ? true : false
+  const [statusPremier, setPremiereStatus] = useState(
+    row.statusPremier === "aktif" ? true : false
   );
-  const handlePremiere = () => {
-    setPremiere(!premiere);
-    ubahPremiere({ premiere: !premiere, id: row.id });
+  const handlePremiereStatus = () => {
+    setPremiereStatus(!statusPremier);
+    ubahStatusPremiere(
+      statusPremier
+        ? { statusPremier: "aktif", id: row.id }
+        : { statusPremier: null, id: row.id }
+    );
   };
 
   // STATUS
   const [status, setStatus] = useState(row.status === true ? true : false);
   const handleStatus = () => {
     setStatus(!status);
-    ubahStatus({ status: !status, id: row.id });
+    ubahStatus({ status: !status });
   };
 
   // LEVEL
@@ -131,8 +139,8 @@ export default function Index({ row }) {
             track: classes.track,
             checked: classes.checked,
           }}
-          checked={row.premiere}
-          onChange={handlePremiere}
+          checked={statusPremier}
+          onChange={handlePremiereStatus}
         />
       </TableCell>
       <TableCell>
@@ -146,7 +154,7 @@ export default function Index({ row }) {
             track: classes.track,
             checked: classes.checked,
           }}
-          checked={row.status}
+          checked={status}
           onChange={handleStatus}
         />
       </TableCell>

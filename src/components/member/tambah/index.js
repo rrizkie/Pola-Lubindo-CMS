@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import {
   Grid,
   TextField,
@@ -12,13 +12,14 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./styles";
+
 import { CMSContext } from "../../../context/state";
 import { useHistory } from "react-router";
 
 function Index() {
   const classes = useStyles();
   const history = useHistory();
-  const { fetchMember, tambahMember } = useContext(CMSContext);
+  const { tambahMember } = useContext(CMSContext);
   const [input, setInput] = useState({
     nama: null,
     phone: null,
@@ -26,10 +27,6 @@ function Index() {
     noKtp: null,
     noNPWP: null,
   });
-
-  useEffect(() => {
-    fetchMember();
-  }, []);
 
   const send = (e) => {
     const data = new FormData();
