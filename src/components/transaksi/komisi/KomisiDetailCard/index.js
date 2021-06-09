@@ -29,7 +29,7 @@ const DetailCard = ({ item }) => {
           </IconButton>
         </TableCell>
         <TableCell>{item.id}</TableCell>
-        <TableCell>{item.User.nama}</TableCell>
+        <TableCell>{item?.User?.nama}</TableCell>
         <TableCell>{item.totalKomisi}</TableCell>
         <TableCell>status</TableCell>
       </TableRow>
