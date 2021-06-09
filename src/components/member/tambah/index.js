@@ -28,11 +28,8 @@ function Index() {
     noNPWP: null,
   });
 
-  const send = (e) => {
-    const data = new FormData();
-    data.append("data", JSON.stringify(input, null, 2));
-
-    tambahMember(data);
+  const send = () => {
+    tambahMember(input);
     history.push("/member");
   };
 

@@ -31,8 +31,9 @@ export default function Index({ row }) {
   );
   const handlePremiereStatus = () => {
     setPremiereStatus(!statusPremier);
+    console.log(statusPremier);
     ubahStatusPremiere(
-      statusPremier
+      !statusPremier === true
         ? { statusPremier: "aktif", id: row.id }
         : { statusPremier: null, id: row.id }
     );

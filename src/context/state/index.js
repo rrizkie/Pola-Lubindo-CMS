@@ -91,10 +91,9 @@ export const Provider = ({ children }) => {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       data: input,
-      body: JSON.stringify(input),
     });
+
     console.log(data, "<<<");
-    data = await data.json();
     fetchMember();
   };
 
