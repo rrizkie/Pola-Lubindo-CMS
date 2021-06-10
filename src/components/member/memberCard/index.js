@@ -77,7 +77,7 @@ export default function Index({ row }) {
   return (
     <TableRow key={row.nama}>
       <TableCell>{row.nama}</TableCell>
-      <TableCell>{row.createdAt}</TableCell>
+      <TableCell>{row.createdAt.split("T")[0]}</TableCell>
       <TableCell>
         <Grid container alignItems="center">
           <Grid item xs={3}>
@@ -94,17 +94,8 @@ export default function Index({ row }) {
           </Grid>
         </Grid>
       </TableCell>
-      <TableCell>
-        <Grid container alignItems="center">
-          <Grid item xs={12}>
-            {row.total}
-          </Grid>
-          <Grid item xs={12}>
-            {row.sisa}
-          </Grid>
-        </Grid>
-      </TableCell>
-      <TableCell>
+      <TableCell>{row.Komisis[0]?.totalKomisi}</TableCell>
+      {/* <TableCell>
         <TextField
           select
           variant="outlined"
@@ -128,7 +119,7 @@ export default function Index({ row }) {
             <Button variant="outlined">ubah</Button>
           </Grid>
         </Grid>
-      </TableCell>
+      </TableCell> */}
       <TableCell>
         <Switch
           focusVisibleClassName={classes.focusVisible}

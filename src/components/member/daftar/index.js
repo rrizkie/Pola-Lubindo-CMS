@@ -79,8 +79,8 @@ export default function Index() {
               <TableCell>Tgl gabung</TableCell>
               <TableCell>Kontak</TableCell>
               <TableCell>Komisi</TableCell>
-              <TableCell>Level Komisi</TableCell>
-              <TableCell>Diskon</TableCell>
+              {/* <TableCell>Level Komisi</TableCell> */}
+              {/* <TableCell>Diskon</TableCell> */}
               <TableCell>Premiere</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Aksi</TableCell>
