@@ -5,6 +5,11 @@ const CMSReducer = (state, action) => {
         ...state,
         produk: action.payload,
       };
+    case "FETCH_MEMBER":
+      return {
+        ...state,
+        member: action.payload,
+      };
     case "FETCH_TRANSAKSI":
       return {
         ...state,

@@ -13,10 +13,11 @@ import {
 } from "@material-ui/core";
 
 import useStyles from "./styles";
+
 import { CMSContext } from "../../../context/state";
 import { useHistory } from "react-router";
 
-function ResponsiveDrawer() {
+function Index() {
   const classes = useStyles();
   const history = useHistory();
   const { brand, fetchBrand, tambahProduk } = useContext(CMSContext);
@@ -163,7 +164,7 @@ function ResponsiveDrawer() {
                   name="brandId"
                   onChange={handleInput}
                 >
-                  {brand.map((item) => (
+                  {brand && brand.map((item) => (
                     <MenuItem key={item.id} value={item.id}>
                       {item.namaBrand}
                     </MenuItem>
@@ -647,4 +648,4 @@ function ResponsiveDrawer() {
   );
 }
 
-export default ResponsiveDrawer;
+export default Index;

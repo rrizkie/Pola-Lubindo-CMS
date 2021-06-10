@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import {
   Grid,
   TextField,
@@ -13,8 +13,29 @@ import {
 
 import useStyles from "./styles";
 
-function ResponsiveDrawer() {
+import { CMSContext } from "../../../context/state";
+import { useHistory } from "react-router";
+
+function Index() {
   const classes = useStyles();
+  const history = useHistory();
+  const { tambahMember } = useContext(CMSContext);
+  const [input, setInput] = useState({
+    nama: null,
+    phone: null,
+    email: null,
+    noKtp: null,
+    noNPWP: null,
+  });
+
+  const send = () => {
+    tambahMember(input);
+    history.push("/member");
+  };
+
+  const handleInput = (e) => {
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
 
   const IOSSwitch = withStyles((theme) => ({
     root: {
@@ -79,6 +100,7 @@ function ResponsiveDrawer() {
       [event.target.name]: event.target.checked,
     });
   };
+
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -100,7 +122,14 @@ function ResponsiveDrawer() {
                 </Typography>
               </Grid>
               <Grid item xs={10}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="nama"
+                  value={input.nama}
+                  onChange={handleInput}
+                />
               </Grid>
 
               <Grid item xs={2}>
@@ -109,7 +138,14 @@ function ResponsiveDrawer() {
                 </Typography>
               </Grid>
               <Grid item xs={4}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="phone"
+                  value={input.phone}
+                  onChange={handleInput}
+                />
               </Grid>
               <Grid item xs={1}>
                 <Typography variant="body2" component="p">
@@ -117,24 +153,45 @@ function ResponsiveDrawer() {
                 </Typography>
               </Grid>
               <Grid item xs={5}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="email"
+                  value={input.email}
+                  onChange={handleInput}
+                />
               </Grid>
 
               <Grid item xs={2}>
                 <Typography variant="body2" component="p">
-                  KTP
+                  Nomor KTP
                 </Typography>
               </Grid>
               <Grid item xs={4}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="noKtp"
+                  value={input.noKtp}
+                  onChange={handleInput}
+                />
               </Grid>
               <Grid item xs={1}>
                 <Typography variant="body2" component="p">
-                  NPWP
+                  Nomor NPWP
                 </Typography>
               </Grid>
               <Grid item xs={5}>
-                <TextField variant="outlined" size="small" fullWidth />
+                <TextField
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  name="noNPWP"
+                  value={input.noNPWP}
+                  onChange={handleInput}
+                />
               </Grid>
 
               <Grid item xs={2}>
@@ -168,6 +225,7 @@ function ResponsiveDrawer() {
           color="primary"
           disableElevation
           className={classes.button_simpan}
+          onClick={send}
         >
           Simpan
         </Button>
@@ -176,4 +234,4 @@ function ResponsiveDrawer() {
   );
 }
 
-export default ResponsiveDrawer;
+export default Index;

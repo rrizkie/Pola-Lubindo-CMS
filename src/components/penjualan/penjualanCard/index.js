@@ -14,7 +14,6 @@ import useStyles from "../styles";
 import { CMSContext } from "../../../context/state";
 
 const PenjualanCard = ({ item }) => {
-  const classes = useStyles();
   const { konfirmasiTransaksi, tolakPesanan, fetchTransaksi, inputResi } =
     useContext(CMSContext);
   const [openProduk, setOpenProduk] = useState(false);
@@ -73,6 +72,8 @@ const PenjualanCard = ({ item }) => {
                       ? item.statusPesanan
                       : item.statusPengiriman}
                   </b>
+                  <b>{item.statusPesanan}</b>
+                  <b>{item.statusPesanan}</b>
                   <br />
                   <span style={{ color: "red" }}>{item.invoice}</span> /
                   {item.namaPenerima} {item.telfonPenerima} /{" "}
@@ -233,6 +234,10 @@ const PenjualanCard = ({ item }) => {
                   variant="outlined"
                   onKeyDown={handleInputResi}
                 />
+
+                <TextField size="small" variant="outlined" />
+
+                <TextField size="small" variant="outlined" />
               </Grid>
             </Grid>
           ) : null}
