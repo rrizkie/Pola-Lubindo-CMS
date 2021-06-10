@@ -94,7 +94,11 @@ export default function Index({ row }) {
           </Grid>
         </Grid>
       </TableCell>
-      <TableCell>{row.Komisis[0]?.totalKomisi}</TableCell>
+      <TableCell>Rp.{row.Komisis[0]?.totalKomisi}</TableCell>
+      <TableCell>
+        Rp.{row.totalPembelian === null ? 0 : row.totalPembelian}
+      </TableCell>
+      <TableCell>{row.statusPremier}</TableCell>
       {/* <TableCell>
         <TextField
           select

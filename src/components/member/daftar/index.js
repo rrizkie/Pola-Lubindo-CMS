@@ -61,7 +61,7 @@ export default function Index() {
           unduh laporan penjualan
         </Button>
         <Typography style={{ textAlign: "right" }}>
-          jumlah member: 244
+          jumlah member: {member.length}
         </Typography>
       </div>
 
@@ -79,6 +79,8 @@ export default function Index() {
               <TableCell>Tgl gabung</TableCell>
               <TableCell>Kontak</TableCell>
               <TableCell>Komisi</TableCell>
+              <TableCell>Total Pembelian</TableCell>
+              <TableCell>Status Premier</TableCell>
               {/* <TableCell>Level Komisi</TableCell> */}
               {/* <TableCell>Diskon</TableCell> */}
               <TableCell>Premiere</TableCell>

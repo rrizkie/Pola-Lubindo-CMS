@@ -16,13 +16,14 @@ import useStyles from "./styles";
 
 import { CMSContext } from "../../../context/state";
 import { useHistory } from "react-router";
+import Swal from "sweetalert2";
 
 function Index() {
   const classes = useStyles();
   const history = useHistory();
   const { brand, fetchBrand, tambahProduk } = useContext(CMSContext);
   const [file, setFile] = useState("/img/cms/photo-product-placeholder.png");
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const [weight, setWeight] = useState("gram");
   const [input, setInput] = useState({
     fotoProduk: null,
@@ -58,12 +59,19 @@ function Index() {
   ];
 
   const send = (e) => {
-    const data = new FormData();
-    data.append("data", JSON.stringify(input, null, 2));
-    data.append("file", image);
+    if (image === null) {
+      Swal.fire({
+        title: "photo belum di upload",
+        icon: "error",
+      });
+    } else {
+      const data = new FormData();
+      data.append("data", JSON.stringify(input, null, 2));
+      data.append("file", image);
 
-    tambahProduk(data);
-    history.push("/produk");
+      tambahProduk(data);
+      history.push("/produk");
+    }
   };
 
   const handleInput = (e) => {
@@ -164,11 +172,12 @@ function Index() {
                   name="brandId"
                   onChange={handleInput}
                 >
-                  {brand && brand.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.namaBrand}
-                    </MenuItem>
-                  ))}
+                  {brand &&
+                    brand.map((item) => (
+                      <MenuItem key={item.id} value={item.id}>
+                        {item.namaBrand}
+                      </MenuItem>
+                    ))}
                 </TextField>
               </Grid>
             </Grid>

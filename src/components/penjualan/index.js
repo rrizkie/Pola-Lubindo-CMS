@@ -17,6 +17,9 @@ import PenjualanCard from "./penjualanCard";
 export default function Index() {
   const classes = useStyles();
   let { transaksi, fetchTransaksi } = useContext(CMSContext);
+  const pesananDitolak = transaksi.filter(
+    (el) => el.statusPesanan === "pesanan di tolak"
+  );
   transaksi = transaksi.filter((el) => el.statusPembayaran === "verified");
   const pesananBaru = transaksi.filter(
     (el) =>
@@ -36,9 +39,7 @@ export default function Index() {
   const pesananSelesai = transaksi.filter(
     (el) => el.statusPengiriman === "pesanan selesai"
   );
-  const pesananDitolak = transaksi.filter(
-    (el) => el.statusPesanan === "pesanan di tolak"
-  );
+
   console.log(transaksi);
 
   useEffect(() => {
