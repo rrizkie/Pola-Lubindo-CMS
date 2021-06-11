@@ -12,7 +12,7 @@ const initialState = {
 
 export const CMSContext = createContext(initialState);
 
-const baseUrl = `157.230.248.17:80`;
+const baseUrl = `157.230.248.17`;
 
 export const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(CMSReducer, initialState);
