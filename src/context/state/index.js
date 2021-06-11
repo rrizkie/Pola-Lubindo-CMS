@@ -12,7 +12,7 @@ const initialState = {
 
 export const CMSContext = createContext(initialState);
 
-const baseUrl = `157.230.248.17`;
+const URL_SERVER = `http://157.230.248.17`;
 
 export const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(CMSReducer, initialState);
@@ -24,7 +24,7 @@ export const Provider = ({ children }) => {
       email: "admin@mail.com",
       password: "1234",
     };
-    let data = await fetch(baseUrl + `/login`, {
+    let data = await fetch(URL_SERVER + `/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginData),
@@ -35,14 +35,14 @@ export const Provider = ({ children }) => {
 
   // PRODUK
   const fetchProduk = async () => {
-    let data = await fetch(baseUrl + "/produk");
+    let data = await fetch(URL_SERVER + "/produk");
     data = await data.json();
     dispatch({ type: "FETCH_PRODUK", payload: data });
   };
 
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/ubah-status-produk/${newData.id}`, {
+    let data = await fetch(URL_SERVER + `/ubah-status-produk/${newData.id}`, {
       method: "PUT",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -53,7 +53,7 @@ export const Provider = ({ children }) => {
 
   const deleteproduk = async (id) => {
     const access_token = localStorage.getItem("access_token");
-    const data = await fetch(baseUrl + `/produk/${id}`, {
+    const data = await fetch(URL_SERVER + `/produk/${id}`, {
       method: "DELETE",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -62,7 +62,7 @@ export const Provider = ({ children }) => {
 
   const tambahProduk = async (input) => {
     const access_token = localStorage.getItem("access_token");
-    const data = await Axios(baseUrl + "/produk", {
+    const data = await Axios(URL_SERVER + "/produk", {
       method: "POST",
       headers: { access_token },
       data: input,
@@ -73,7 +73,7 @@ export const Provider = ({ children }) => {
   // MEMBER
   const fetchMember = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + "/customer", {
+    let data = await fetch(URL_SERVER + "/customer", {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -84,7 +84,7 @@ export const Provider = ({ children }) => {
 
   const tambahMember = async (input) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await Axios(baseUrl + "/add-customer", {
+    let data = await Axios(URL_SERVER + "/add-customer", {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       data: input,
@@ -96,7 +96,7 @@ export const Provider = ({ children }) => {
 
   const ubahStatusPremiere = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/ubah-status-premier`, {
+    let data = await fetch(URL_SERVER + `/ubah-status-premier`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -107,7 +107,7 @@ export const Provider = ({ children }) => {
 
   const ubahStatus = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/ubah-status-customer`, {
+    let data = await fetch(URL_SERVER + `/ubah-status-customer`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -119,7 +119,7 @@ export const Provider = ({ children }) => {
   // TRANSAKSI
   const fetchTransaksi = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/transaksi`, {
+    let data = await fetch(URL_SERVER + `/transaksi`, {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -129,7 +129,7 @@ export const Provider = ({ children }) => {
 
   const fetchTransaksiKomisi = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/all-transaksi`, {
+    let data = await fetch(URL_SERVER + `/all-transaksi`, {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -139,7 +139,7 @@ export const Provider = ({ children }) => {
 
   const konfirmasiTransaksi = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/konfirmasi-transaksi`, {
+    let data = await fetch(URL_SERVER + `/konfirmasi-transaksi`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -152,7 +152,7 @@ export const Provider = ({ children }) => {
 
   const tolakPesanan = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/tolak-pesanan`, {
+    let data = await fetch(URL_SERVER + `/tolak-pesanan`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -163,7 +163,7 @@ export const Provider = ({ children }) => {
 
   const ubahStatusPembayaran = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/ubah-status-pembayaran`, {
+    let data = await fetch(URL_SERVER + `/ubah-status-pembayaran`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -173,7 +173,7 @@ export const Provider = ({ children }) => {
 
   const inputResi = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/input-resi`, {
+    let data = await fetch(URL_SERVER + `/input-resi`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -185,7 +185,7 @@ export const Provider = ({ children }) => {
   // BRAND
   const fetchBrand = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(baseUrl + `/brand`, {
+    let data = await fetch(URL_SERVER + `/brand`, {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
