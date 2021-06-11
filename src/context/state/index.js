@@ -12,7 +12,7 @@ const initialState = {
 
 export const CMSContext = createContext(initialState);
 
-const baseUrl = `http://localhost:3000`;
+const baseUrl = `157.230.248.17:80`;
 
 export const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(CMSReducer, initialState);
@@ -42,21 +42,18 @@ export const Provider = ({ children }) => {
 
   const ubahStatusProduk = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(
-      `http://localhost:3000/ubah-status-produk/${newData.id}`,
-      {
-        method: "PUT",
-        headers: { access_token, "Content-Type": "application/json" },
-        body: JSON.stringify(newData),
-      }
-    );
+    let data = await fetch(baseUrl + `/ubah-status-produk/${newData.id}`, {
+      method: "PUT",
+      headers: { access_token, "Content-Type": "application/json" },
+      body: JSON.stringify(newData),
+    });
     data = await data.json();
     fetchProduk();
   };
 
   const deleteproduk = async (id) => {
     const access_token = localStorage.getItem("access_token");
-    const data = await fetch(`http://localhost:3000/produk/${id}`, {
+    const data = await fetch(baseUrl + `/produk/${id}`, {
       method: "DELETE",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -65,7 +62,7 @@ export const Provider = ({ children }) => {
 
   const tambahProduk = async (input) => {
     const access_token = localStorage.getItem("access_token");
-    const data = await Axios("http://localhost:3000/produk", {
+    const data = await Axios(baseUrl + "/produk", {
       method: "POST",
       headers: { access_token },
       data: input,
@@ -76,7 +73,7 @@ export const Provider = ({ children }) => {
   // MEMBER
   const fetchMember = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch("http://localhost:3000/customer", {
+    let data = await fetch(baseUrl + "/customer", {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -87,7 +84,7 @@ export const Provider = ({ children }) => {
 
   const tambahMember = async (input) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await Axios("http://localhost:3000/add-customer", {
+    let data = await Axios(baseUrl + "/add-customer", {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       data: input,
@@ -99,7 +96,7 @@ export const Provider = ({ children }) => {
 
   const ubahStatusPremiere = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(`http://localhost:3000/ubah-status-premier`, {
+    let data = await fetch(baseUrl + `/ubah-status-premier`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -110,7 +107,7 @@ export const Provider = ({ children }) => {
 
   const ubahStatus = async (newData) => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(`http://localhost:3000/ubah-status-customer`, {
+    let data = await fetch(baseUrl + `/ubah-status-customer`, {
       method: "POST",
       headers: { access_token, "Content-Type": "application/json" },
       body: JSON.stringify(newData),
@@ -122,7 +119,7 @@ export const Provider = ({ children }) => {
   // TRANSAKSI
   const fetchTransaksi = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(`http://localhost:3000/transaksi`, {
+    let data = await fetch(baseUrl + `/transaksi`, {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -132,7 +129,7 @@ export const Provider = ({ children }) => {
 
   const fetchTransaksiKomisi = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(`http://localhost:3000/all-transaksi`, {
+    let data = await fetch(baseUrl + `/all-transaksi`, {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
@@ -188,7 +185,7 @@ export const Provider = ({ children }) => {
   // BRAND
   const fetchBrand = async () => {
     const access_token = localStorage.getItem("access_token");
-    let data = await fetch(`http://localhost:3000/brand`, {
+    let data = await fetch(baseUrl + `/brand`, {
       method: "GET",
       headers: { access_token, "Content-Type": "application/json" },
     });
