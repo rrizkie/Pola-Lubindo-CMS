@@ -20,7 +20,7 @@ const ProdukCard = ({ row }) => {
   );
   const handleStatus = () => {
     setProdukStatus(!produkStatus);
-    ubahStatusProduk(produkStatus === true ? "Aktif" : null, {
+    ubahStatusProduk({
       statusProduk: !produkStatus,
       id: row.id,
     });
