@@ -20,9 +20,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import useStyles from "./styles";
 
 import MemberCard from "../memberCard";
+import { useHistory } from "react-router";
 
 export default function Index() {
   const classes = useStyles();
+  const history = useHistory();
 
   const { fetchMember, member } = useContext(CMSContext);
 
@@ -54,6 +56,7 @@ export default function Index() {
           disableElevation
           color="secondary"
           className={classes.button}
+          onClick={() => history.push("/member/tambah")}
         >
           + Tambah Member
         </Button>

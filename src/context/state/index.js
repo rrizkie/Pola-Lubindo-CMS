@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import CMSReducer from "../reducers";
 import Axios from "axios";
+import Swal from "sweetalert2";
 
 const initialState = {
   produk: [],
@@ -12,8 +13,8 @@ const initialState = {
 
 export const CMSContext = createContext(initialState);
 
-const URL_SERVER = `http://157.230.248.17`;
-// const URL_SERVER = `http://localhost:80`;
+// const URL_SERVER = `http://157.230.248.17`;
+const URL_SERVER = `http://localhost:80`;
 
 export const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(CMSReducer, initialState);
@@ -84,15 +85,27 @@ export const Provider = ({ children }) => {
   };
 
   const tambahMember = async (input) => {
-    const access_token = localStorage.getItem("access_token");
-    let data = await Axios(URL_SERVER + "/add-customer", {
-      method: "POST",
-      headers: { access_token, "Content-Type": "application/json" },
-      data: input,
-    });
-
-    console.log(data, "<<<");
-    fetchMember();
+    try {
+      const access_token = localStorage.getItem("access_token");
+      let data = await fetch(URL_SERVER + "/add-customer", {
+        method: "POST",
+        headers: { access_token, "Content-Type": "application/json" },
+        body: JSON.stringify(input),
+      });
+      data = await data.json();
+      if (data.errMessage) {
+        throw data.errMessage;
+      } else {
+        fetchMember();
+        return { message: "success" };
+      }
+    } catch (error) {
+      Swal.fire({
+        title: error,
+        icon: "error",
+      });
+      return error;
+    }
   };
 
   const ubahStatusPremiere = async (newData) => {

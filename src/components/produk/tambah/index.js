@@ -641,8 +641,9 @@ function Index() {
         </Card>
       </Grid>
       <Grid item xs={12} className={classes.button}>
-        <Button variant="outlined">Batal</Button>
-        <Button variant="outlined">Simpan & tambah baru</Button>
+        <Button variant="outlined" onClick={() => history.push("/produk")}>
+          Batal
+        </Button>
         <Button
           variant="contained"
           color="primary"

@@ -28,9 +28,11 @@ function Index() {
     noNPWP: null,
   });
 
-  const send = () => {
-    tambahMember(input);
-    history.push("/member");
+  const send = async () => {
+    const response = await tambahMember(input);
+    if (response.message === "success") {
+      history.push("/member");
+    }
   };
 
   const handleInput = (e) => {
@@ -218,8 +220,9 @@ function Index() {
         </Card>
       </Grid>
       <Grid item xs={12} className={classes.button}>
-        <Button variant="outlined">Batal</Button>
-        <Button variant="outlined">Simpan & tambah baru</Button>
+        <Button variant="outlined" onClick={() => history.push("/member")}>
+          Batal
+        </Button>
         <Button
           variant="contained"
           color="primary"
