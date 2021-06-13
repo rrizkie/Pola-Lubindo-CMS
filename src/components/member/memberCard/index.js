@@ -21,6 +21,10 @@ import useStyles from "./styles";
 
 export default function Index({ row }) {
   const classes = useStyles();
+  let newPhoneNumber = "+62";
+  for (let i = 1; i < row.phone.length; i++) {
+    newPhoneNumber += row.phone[i];
+  }
 
   const { ubahStatusPremiere, ubahStatus, deleteMember } =
     useContext(CMSContext);
@@ -83,13 +87,18 @@ export default function Index({ row }) {
           <Grid
             item
             xs={3}
-            onClick={()=>window.open(`https://api.whatsapp.com/send?phone=${row.phone}&text=hi`,"_blank")}
+            onClick={() =>
+              window.open(
+                `https://api.whatsapp.com/send?phone=${newPhoneNumber}&text=hi`,
+                "_blank"
+              )
+            }
             style={{ cursor: "pointer" }}
           >
             <img src="/img/cms/WhatsApp.svg" alt="WhatsApp" width="30" />
           </Grid>
           <Grid item xs={9}>
-            {row.phone}
+            {row.phone[0] === "+" ? row.phone : newPhoneNumber}
           </Grid>
           <Grid item xs={3}>
             <MailOutlineIcon />
