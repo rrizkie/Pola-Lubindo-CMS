@@ -17,9 +17,11 @@ import useStyles from "./styles";
 import ImportExportOutlinedIcon from "@material-ui/icons/ImportExportOutlined";
 
 import ProdukCard from "../produkCard";
+import { useHistory } from "react-router";
 
 export default function Index(params) {
   const classes = useStyles();
+  const history = useHistory();
   const { autoLogin, fetchProduk, produk } = useContext(CMSContext);
   const [view, setView] = React.useState("semua produk");
 
@@ -44,6 +46,7 @@ export default function Index(params) {
         disableElevation
         color="primary"
         className={classes.tambah_produk}
+        onClick={() => history.push("/produk/tambah")}
       >
         + Tambah Produk
       </Button>

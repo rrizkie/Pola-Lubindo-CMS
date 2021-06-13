@@ -80,7 +80,12 @@ export default function Index({ row }) {
       <TableCell>{row.createdAt.split("T")[0]}</TableCell>
       <TableCell>
         <Grid container alignItems="center">
-          <Grid item xs={3}>
+          <Grid
+            item
+            xs={3}
+            onClick={()=>window.open(`https://api.whatsapp.com/send?phone=${row.phone}&text=hi`,"_blank")}
+            style={{ cursor: "pointer" }}
+          >
             <img src="/img/cms/WhatsApp.svg" alt="WhatsApp" width="30" />
           </Grid>
           <Grid item xs={9}>
