@@ -100,17 +100,17 @@ const PenjualanCard = ({ item }) => {
           <Grid item xs={4} container>
             <Grid item xs={2}>
               <img
-                src={item.Carts[0].Produk?.fotoProduk}
-                alt={item.Carts[0].Produk?.namaProduk}
+                src={item.Carts[0]?.Produk?.fotoProduk}
+                alt={item.Carts[0]?.Produk?.namaProduk}
                 width="50"
                 height="50"
               />
             </Grid>
             <Grid item xs={10}>
               <Typography variant="body2">
-                <b>{item.Carts[0].Produk?.namaProduk}</b>
+                <b>{item.Carts[0]?.Produk?.namaProduk}</b>
                 <br />
-                {item.Carts[0].qty} x Rp {item.Carts[0].Produk?.hargaSatuan}
+                {item.Carts[0]?.qty} x Rp {item.Carts[0]?.Produk?.hargaSatuan}
               </Typography>
             </Grid>
           </Grid>
