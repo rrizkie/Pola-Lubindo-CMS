@@ -100,7 +100,7 @@ export default function Index(params) {
               <TableRow>
                 <TableCell>{item.createdAt.split("T")[0]}</TableCell>
                 <TableCell>{item.id}</TableCell>
-                <TableCell>{item.Carts[0].User?.nama}</TableCell>
+                <TableCell>{item.Carts[0]?.User?.nama}</TableCell>
                 <TableCell>{item.invoice}</TableCell>
                 <TableCell>{item.metodePembayaran}</TableCell>
                 <TableCell>{item.bankAsal}</TableCell>
