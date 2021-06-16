@@ -38,8 +38,8 @@ export default function Index({ row }) {
     console.log(statusPremier);
     ubahStatusPremiere(
       !statusPremier === true
-        ? { statusPremier: "aktif", id: row.id }
-        : { statusPremier: null, id: row.id }
+        ? { statusPremier: "aktif", referralStatus: true, id: row.id }
+        : { statusPremier: null, referralStatus: false, id: row.id }
     );
   };
 
