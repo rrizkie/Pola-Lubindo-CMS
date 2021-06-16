@@ -64,6 +64,11 @@ function Index() {
         title: "photo belum di upload",
         icon: "error",
       });
+    } else if (input.deskripsi > 255) {
+      Swal.fire({
+        title: "deskripsi produk max 255 character",
+        icon: "error",
+      });
     } else {
       const data = new FormData();
       data.append("data", JSON.stringify(input, null, 2));
