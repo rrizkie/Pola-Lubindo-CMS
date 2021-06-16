@@ -206,7 +206,7 @@ function Index() {
                   variant="outlined"
                   size="small"
                   fullWidth
-                  helperText="0/2000"
+                  helperText={`${input.deskripsi?.length}/255`}
                   multiline
                   rows={10}
                   name="deskripsi"
