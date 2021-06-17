@@ -108,6 +108,8 @@ export default function Index({ row }) {
           </Grid>
         </Grid>
       </TableCell>
+      <TableCell>{row.noKtp}</TableCell>
+      <TableCell>{row.noNPWP}</TableCell>
       <TableCell>Rp.{row.Komisis[0]?.totalKomisi}</TableCell>
       <TableCell>
         Rp.{row.totalPembelian === null ? 0 : row.totalPembelian}

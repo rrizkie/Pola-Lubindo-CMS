@@ -81,6 +81,8 @@ export default function Index() {
               </TableCell>
               <TableCell>Tgl gabung</TableCell>
               <TableCell>Kontak</TableCell>
+              <TableCell>Ktp</TableCell>
+              <TableCell>NPWP</TableCell>
               <TableCell>Komisi</TableCell>
               <TableCell>Total Pembelian</TableCell>
               <TableCell>Status Premier</TableCell>

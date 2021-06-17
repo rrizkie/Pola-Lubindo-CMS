@@ -27,15 +27,15 @@ function Index() {
   const [weight, setWeight] = useState("gram");
   const [input, setInput] = useState({
     fotoProduk: null,
-    namaProduk: null,
+    namaProduk: "",
     brandId: null,
-    deskripsi: null,
+    deskripsi: "",
     minPesanan: 1,
     hargaSatuan: null,
     hargaGrosir: null,
     statusProduk: false,
     stock: null,
-    sku: null,
+    sku: "",
     weight: 0,
     panjang: 0,
     lebar: null,
@@ -64,7 +64,12 @@ function Index() {
         title: "photo belum di upload",
         icon: "error",
       });
-    } else if (input.deskripsi > 255) {
+    } else if (input.sku === "" || input.sku === null) {
+      Swal.fire({
+        title: "data belum lengkap",
+        icon: "error",
+      });
+    } else if (input.deskripsi.length > 255) {
       Swal.fire({
         title: "deskripsi produk max 255 character",
         icon: "error",
@@ -155,7 +160,7 @@ function Index() {
                   variant="outlined"
                   size="small"
                   fullWidth
-                  helperText="0/70"
+                  helperText={`${input.namaProduk?.length}/255`}
                   style={{ height: "100%" }}
                   name="namaProduk"
                   onChange={handleInput}

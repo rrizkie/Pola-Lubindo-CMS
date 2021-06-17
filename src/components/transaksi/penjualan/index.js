@@ -16,12 +16,23 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
 import { CMSContext } from "../../../context/state";
+import { RowCard } from "./RowCard";
 
 export default function Index(params) {
   const classes = useStyles();
   const { transaksi, fetchTransaksi, ubahStatusPembayaran, tolakPesanan } =
     useContext(CMSContext);
-  const [filter, setFilter] = React.useState("penjualan");
+  const [filter, setFilter] = React.useState("semua transaksi");
+  const needVerification = transaksi.filter(
+    (el) => el.statusPembayaran === "menunggu konfirmasi"
+  );
+  const beforePayment = transaksi.filter(
+    (el) => el.statusPembayaran === "menunggu pembayaran"
+  );
+  const verified = transaksi.filter((el) => el.statusPembayaran === "verified");
+  const rejected = transaksi.filter(
+    (el) => el.statusPembayaran === "pesanan di tolak"
+  );
 
   const allFilter = [
     { value: "semua transaksi" },
@@ -29,7 +40,6 @@ export default function Index(params) {
     { value: "belum bayar" },
     { value: "verified" },
     { value: "pembayaran ditolak" },
-    { value: "transaksi dibatalkan" },
   ];
 
   const handleVerified = (data) => {
@@ -88,6 +98,7 @@ export default function Index(params) {
               <TableCell>Member</TableCell>
               <TableCell>Sales Invoice</TableCell>
               <TableCell>Metode Pembayaran</TableCell>
+              <TableCell>Rekening Asal</TableCell>
               <TableCell>Bank Asal</TableCell>
               <TableCell>Bank Tujuan</TableCell>
               <TableCell>Total Transaksi</TableCell>
@@ -96,41 +107,45 @@ export default function Index(params) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {transaksi.map((item) => (
-              <TableRow>
-                <TableCell>{item.createdAt.split("T")[0]}</TableCell>
-                <TableCell>{item.id}</TableCell>
-                <TableCell>{item.Carts[0]?.User?.nama}</TableCell>
-                <TableCell>{item.invoice}</TableCell>
-                <TableCell>{item.metodePembayaran}</TableCell>
-                <TableCell>{item.bankAsal}</TableCell>
-                <TableCell>{item.bankTujuan}</TableCell>
-                <TableCell>Rp. {item.totalHarga}</TableCell>
-                <TableCell>{item.statusPembayaran}</TableCell>
-                {item.statusPembayaran === "menunggu konfirmasi" ? (
-                  <TableCell>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      variant="outlined"
-                      size="small"
-                    >
-                      <MenuItem
-                        value="verified"
-                        onClick={() => handleVerified(item)}
-                      >
-                        Verified
-                      </MenuItem>
-                      <MenuItem value="tolak" onClick={() => handleTolak(item)}>
-                        Tolak
-                      </MenuItem>
-                    </TextField>
-                  </TableCell>
-                ) : (
-                  ""
-                )}
-              </TableRow>
-            ))}
+            {filter === "perlu verifikasi"
+              ? needVerification.map((item) => (
+                  <RowCard
+                    item={item}
+                    handleVerified={handleVerified}
+                    handleTolak={handleTolak}
+                  />
+                ))
+              : filter === "belum bayar"
+              ? beforePayment.map((item) => (
+                  <RowCard
+                    item={item}
+                    handleVerified={handleVerified}
+                    handleTolak={handleTolak}
+                  />
+                ))
+              : filter === "verified"
+              ? verified.map((item) => (
+                  <RowCard
+                    item={item}
+                    handleVerified={handleVerified}
+                    handleTolak={handleTolak}
+                  />
+                ))
+              : filter === "pembayaran ditolak"
+              ? rejected.map((item) => (
+                  <RowCard
+                    item={item}
+                    handleVerified={handleVerified}
+                    handleTolak={handleTolak}
+                  />
+                ))
+              : transaksi.map((item) => (
+                  <RowCard
+                    item={item}
+                    handleVerified={handleVerified}
+                    handleTolak={handleTolak}
+                  />
+                ))}
           </TableBody>
         </Table>
       </TableContainer>
